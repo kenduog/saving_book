@@ -6,7 +6,9 @@ let router = express.Router();
 const initWebRoute = (app) => {
   router.get("/", homeController.getHomePage);
 
-  router.get("/login", loginController.postLoginPage);
+  // Login
+  router.get("/login", loginController.getLoginPage);
+  router.post("/login", loginController.postLoginPage);
   return app.use("/", router);
 };
 export default initWebRoute;

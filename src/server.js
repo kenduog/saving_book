@@ -6,6 +6,10 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT;
 
+// Use call value ejs throung controller
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // setup view engine
 configViewEngine(app);
 
@@ -13,9 +17,9 @@ configViewEngine(app);
 initWebRoute(app);
 
 //handle 404 not found
-// app.use((req, res) => {
-//   return res.render("404.ejs");
-// });
+app.use((req, res) => {
+  return res.render("404.ejs");
+});
 
 app.listen(port, () => {
   console.log(`Saving Book site: http://localhost:${port}`);
