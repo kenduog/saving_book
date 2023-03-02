@@ -15,6 +15,13 @@ const initWebRoute = (app) => {
   router.get("/register", accountController.getRegisterPage);
   router.post("/register", accountController.postRegisterPage);
 
+  // Complete account
+  router.get("/complete-account", accountController.getCompleteAccountPage);
+  router.post(
+    "/complete-account/:userID",
+    accountController.postCompleteAccountPage
+  );
+
   return app.use("/", router);
 };
 export default initWebRoute;

@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Complete Account</title>
+</head>
+
+<body>
+    <form action="/complete-account/<%=userID %>" method="post">
+        <div class="imgcontainer">
+            <img src="/img/avt_login.png" alt="Avatar" class="avatar">
+        </div>
+        <div class="container">
+            <label for="uFirstName"><b>First Name</b></label>
+            <input type="text" placeholder="Enter First Name" name="uFirstName" required>
+
+            <label for="uLastName"><b>Last Name</b></label>
+            <input type="text" placeholder="Enter Last Name" name="uLastName" required>
+
+            <label for="uBOD"><b>Birth Of Date</b></label>
+            <input type="date" placeholder="Enter Birth Of Date" name="uBOD" required>
+
+            <label for="uEmail"><b>Email</b></label>
+            <input type="email" placeholder="Enter Confirm Password" name="uEmail" required>
+
+            <button type="submit">Complete</button>
+        </div>
+    </form>
+    <form action="/" method="get">
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="submit" class="cancelbtn">Skip</button>
+        </div>
+    </form>
+
+</body>
+
+</html>
