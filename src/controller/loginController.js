@@ -6,11 +6,11 @@ let getLoginPage = (req, res) => {
 let postLoginPage = async (req, res) => {
   let { uPhone, uPassword } = req.body;
   let [objUser] = await pool.execute(
-    "select phoneNumber,password,customerID from user_account where phoneNumber = ? and status = 1",
+    "select phoneNumber,password from user_account where phoneNumber = ? and status = 1",
     [uPhone]
   );
   try {
-    if (objUser[0].phoneNumber == uPhone) {
+    if (objUser.length == 1) {
       if (objUser[0].password == uPassword) {
         res.redirect("/");
       } else {
@@ -20,7 +20,7 @@ let postLoginPage = async (req, res) => {
       return res.send("User not exist");
     }
   } catch (error) {
-    return res.redirect("/login");
+    return res.render("login.ejs");
   }
 };
 
