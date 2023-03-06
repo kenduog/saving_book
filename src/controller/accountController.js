@@ -14,13 +14,15 @@ let postRegisterPage = async (req, res) => {
     res.send("User already exists");
   } else {
     if (uPassword == uConfirmPassword) {
+      //encode password
+      let ePassword = Buffer.from(uPassword).toString("base64");
       await pool.execute(
         "insert into user_account(phoneNumber, password, status) values(?, ?, ?)",
-        [uPhone, uPassword, 1]
+        [uPhone, ePassword, 1]
       );
       let [userID] = await pool.execute(
         "select id from user_account where phoneNumber = ? and password = ? and status = 1",
-        [uPhone, uPassword]
+        [uPhone, ePassword]
       );
       res.render("complete-account.ejs", { userID: userID[0].id });
     } else {

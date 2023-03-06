@@ -11,7 +11,11 @@ let postLoginPage = async (req, res) => {
   );
   try {
     if (objUser.length == 1) {
-      if (objUser[0].password == uPassword) {
+      //decode password
+      let objPassword = Buffer.from(objUser[0].password, "base64").toString(
+        "ascii"
+      );
+      if (objPassword == uPassword) {
         res.redirect("/");
       } else {
         return res.send("Password is not correct");
