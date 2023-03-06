@@ -42,7 +42,7 @@ let postCompleteAccountPage = async (req, res) => {
       "UPDATE user_account set firstName = ?, lastName =?, BOD =?, email = ? where id = ?",
       [uFirstName, uLastName, uBOD, uEmail, userID]
     );
-    res.redirect("/");
+    res.redirect("/login");
   } catch (error) {
     res.redirect("/login");
   }
