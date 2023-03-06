@@ -1,4 +1,6 @@
 import pool from "../configs/connectDB";
+import jwt from "jsonwebtoken";
+require("dotenv").config();
 
 let getLoginPage = (req, res) => {
   return res.render("login.ejs");
@@ -6,7 +8,7 @@ let getLoginPage = (req, res) => {
 let postLoginPage = async (req, res) => {
   let { uPhone, uPassword } = req.body;
   let [objUser] = await pool.execute(
-    "select phoneNumber,password from user_account where phoneNumber = ? and status = 1",
+    "select id,phoneNumber,password from user_account where phoneNumber = ? and status = 1",
     [uPhone]
   );
   try {
@@ -16,6 +18,12 @@ let postLoginPage = async (req, res) => {
         "ascii"
       );
       if (objPassword == uPassword) {
+        const objUserToken = {
+          id: objUser[0].id,
+          phone: objUser[0].phoneNumber,
+        };
+        const accessToken = jwt.sign(objUserToken, process.env.TOKEN_SECRECT);
+        console.log(accessToken);
         res.redirect("/");
       } else {
         return res.send("Password is not correct");
