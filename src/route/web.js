@@ -27,9 +27,8 @@ const initWebRoute = (app) => {
   router.post("/register", accountController.postRegisterPage);
 
   // Complete account
-  router.get("/complete-account", accountController.getCompleteAccountPage);
-  router.post(
-    "/complete-account/:userID",
+  router.get(
+    "/complete-account",
     (req, res, next) => {
       //Cookies that have not been signed
       if (req.cookies.tokenSVB != null) {
@@ -38,6 +37,10 @@ const initWebRoute = (app) => {
         res.redirect("/login");
       }
     },
+    accountController.getCompleteAccountPage
+  );
+  router.post(
+    "/complete-account/:userID",
     accountController.postCompleteAccountPage
   );
 
