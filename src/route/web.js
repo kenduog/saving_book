@@ -2,6 +2,7 @@ import express from "express";
 import homeController from "../controller/homeController";
 import loginController from "../controller/loginController";
 import accountController from "../controller/accountController";
+import savingbookController from "../controller/savingBookController";
 
 let router = express.Router();
 const initWebRoute = (app) => {
@@ -43,6 +44,9 @@ const initWebRoute = (app) => {
     "/complete-account/:userID",
     accountController.postCompleteAccountPage
   );
+
+  //Welcome -- first input saving book
+  router.post("/welcome", savingbookController.postCreateNewSavingBook);
 
   return app.use("/", router);
 };

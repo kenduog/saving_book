@@ -1,0 +1,44 @@
+/* Full-width inputs */
+input[type="number"] {
+  text-align: center;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-family: cursive;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Set a style for all buttons */
+button {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.h1Welcome {
+  padding-top: 15%;
+  font-family: cursive;
+  text-align: center;
+  font-size: 100px;
+  color: grey;
+}
+.containerWelcome {
+  padding: 16px;
+  text-align: center;
+  font-family: cursive;
+  font-size: 30px;
+}
+.btnSvConfirm {
+  font-family: cursive;
+  font-size: 20px;
+}

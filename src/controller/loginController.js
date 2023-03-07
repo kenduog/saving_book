@@ -45,7 +45,7 @@ let setCookies = (req, res, objUser) => {
     // res.setHeader("set-cookie", `tokenSVB=${accessToken}`);
     res.cookie("tokenSVB", accessToken, {
       // Time max loign
-      maxAge: 10 * 1000, // 30s
+      maxAge: 15 * 60 * 1000, // 15m
       //expires: new Date(Date.now() + 5 * 1000),
       httpOnly: true,
       secure: true,
