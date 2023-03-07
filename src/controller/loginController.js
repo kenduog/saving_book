@@ -22,9 +22,12 @@ let postLoginPage = async (req, res) => {
           id: objUser[0].id,
           phone: objUser[0].phoneNumber,
         };
-        const accessToken = jwt.sign(objUserToken, process.env.TOKEN_SECRECT);
-        console.log(accessToken);
-        res.redirect("/");
+        let statusCookie = setCookies(req, res, objUserToken);
+        if (statusCookie == "Success") {
+          return res.redirect("/");
+        } else {
+          return res.redirect("/login");
+        }
       } else {
         return res.send("Password is not correct");
       }
@@ -33,6 +36,39 @@ let postLoginPage = async (req, res) => {
     }
   } catch (error) {
     return res.render("login.ejs");
+  }
+};
+
+let setCookies = (req, res, objUser) => {
+  try {
+    const accessToken = jwt.sign(objUser, process.env.TOKEN_SECRECT);
+    // res.setHeader("set-cookie", `tokenSVB=${accessToken}`);
+    res.cookie("tokenSVB", accessToken, {
+      // Time max loign
+      maxAge: 10 * 1000, // 30s
+      //expires: new Date(Date.now() + 5 * 1000),
+      httpOnly: true,
+      secure: true,
+    });
+    // .cookie("blog", "https://www.youtube.com/", {
+    //   httpOnly: true,
+    //   secure: true,
+    // });
+    return "Success";
+  } catch (error) {
+    console.log(error);
+    return "Fail";
+  }
+};
+
+let clearCookies = () => {
+  try {
+    //clear cookie
+    res.clearCookie("tokenSVB");
+    return "Success";
+  } catch (error) {
+    console.log(error);
+    return "Fail";
   }
 };
 

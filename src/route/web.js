@@ -5,7 +5,18 @@ import accountController from "../controller/accountController";
 
 let router = express.Router();
 const initWebRoute = (app) => {
-  router.get("/", homeController.getHomePage);
+  router.get(
+    "/",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    homeController.getHomePage
+  );
 
   // Login
   router.get("/login", loginController.getLoginPage);
@@ -19,6 +30,14 @@ const initWebRoute = (app) => {
   router.get("/complete-account", accountController.getCompleteAccountPage);
   router.post(
     "/complete-account/:userID",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
     accountController.postCompleteAccountPage
   );
 
