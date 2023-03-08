@@ -61,7 +61,7 @@ let setCookies = (req, res, objUser) => {
   }
 };
 
-let clearCookies = () => {
+let clearCookies = (req, res) => {
   try {
     //clear cookie
     res.clearCookie("tokenSVB");
@@ -71,8 +71,16 @@ let clearCookies = () => {
     return "Fail";
   }
 };
-
+let getLogoutPage = (req, res) => {
+  let status = clearCookies(req, res);
+  if (status == "Success") {
+    return res.redirect("/login");
+  } else {
+    return "Log out Fail";
+  }
+};
 module.exports = {
   getLoginPage,
   postLoginPage,
+  getLogoutPage,
 };

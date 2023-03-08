@@ -1,5 +1,4 @@
 import express from "express";
-import homeController from "../controller/homeController";
 import loginController from "../controller/loginController";
 import accountController from "../controller/accountController";
 import savingbookController from "../controller/savingBookController";
@@ -16,12 +15,26 @@ const initWebRoute = (app) => {
         res.redirect("/login");
       }
     },
-    homeController.getHomePage
+    savingbookController.getHomePage
   );
 
   // Login
   router.get("/login", loginController.getLoginPage);
   router.post("/login", loginController.postLoginPage);
+
+  //Log out
+  router.get(
+    "/logout",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    loginController.getLogoutPage
+  );
 
   // Register
   router.get("/register", accountController.getRegisterPage);
