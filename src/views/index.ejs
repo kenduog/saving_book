@@ -15,192 +15,135 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="/css/dashboard/style.css">
+    <link rel="stylesheet" href="/css/dashboard/styleCard.css">
 
     <title>Dashboard</title>
 </head>
 
 <body>
-
-
-    <aside class="sidebar">
-        <div class="toggle">
-            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
-                <span></span>
-            </a>
-        </div>
-        <div class="side-inner">
-
-            <div class="profile">
-                <img src="images/person_profile.jpg" alt="Image" class="img-fluid">
-                <h3 class="name">
-                    <%=getUser.firstName%>
-                        <%=getUser.lastName%>
-                </h3>
-                <span class="country">
-                    <%=getUser.email%>
-                </span>
+    <header>
+        <aside class="sidebar">
+            <div class="toggle">
+                <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                    <span></span>
+                </a>
             </div>
+            <div class="side-inner">
 
-            <div class="counter d-flex justify-content-center">
-                <!-- <div class="row justify-content-center"> -->
-                <div class="col">
-                    <strong class="number">
-                        <%=listSavingBook.totalMoneyStr%>
-                    </strong>
-                    <span class="number-label">Total</span>
+                <div class="profile">
+                    <img src="images/person_profile.jpg" alt="Image" class="img-fluid">
+                    <h3 class="name">
+                        <%=getUser.firstName%>
+                            <%=getUser.lastName%>
+                    </h3>
+                    <span class="country">
+                        <%=getUser.email%>
+                    </span>
                 </div>
-                <div class="col">
-                    <strong class="number">
-                        <%=listSavingBook.decNECStr%>
-                    </strong>
-                    <span class="number-label">Need</span>
-                </div>
-                <div class="col">
-                    <strong class="number">
-                        <%=listSavingBook.decPLAYStr%>
-                    </strong>
-                    <span class="number-label">Play</span>
-                </div>
-                <!-- </div> -->
-            </div>
 
-            <div class="nav-menu">
-                <ul>
-                    <li class="active">
-                        <form action="/" method="get">
-                            <a href="#">
-                                <span class="icon-home mr-3"></span>
-                                <button class="form_nav" type="submit">Dashboard</button>
-                            </a>
-                        </form>
-                    </li>
-                    <!-- <li><a href="#"><span class="icon-notifications mr-3"></span>Notifications</a></li> -->
-                    <li>
-                        <form action="/logout" method="get">
-                            <a>
-                                <span class="icon-sign-out mr-3"></span>
-                                <button type="submit" class="form_nav">Log out</button>
-                            </a>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </aside>
-    <main>
-        <div class="site-section">
-            <div class="container">
-                <div class="row justify-content-center">
-
-
-
-
-
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_1.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_3.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_4.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_1.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_3.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="images/person_4.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="counter d-flex justify-content-center">
+                    <!-- <div class="row justify-content-center"> -->
+                    <div class="col">
+                        <strong class="number">
+                            <%=listSavingBook.totalMoneyStr%>
+                        </strong>
+                        <span class="number-label">Total</span>
                     </div>
+                    <div class="col">
+                        <strong class="number">
+                            <%=listSavingBook.decNECStr%>
+                        </strong>
+                        <span class="number-label">Need</span>
+                    </div>
+                    <div class="col">
+                        <strong class="number">
+                            <%=listSavingBook.decPLAYStr%>
+                        </strong>
+                        <span class="number-label">Play</span>
+                    </div>
+                    <!-- </div> -->
+                </div>
 
-
+                <div class="nav-menu">
+                    <ul>
+                        <li class="active">
+                            <form action="/" method="get">
+                                <a href="#">
+                                    <span class="icon-home mr-3"></span>
+                                    <button class="form_nav" type="submit">Dashboard</button>
+                                </a>
+                            </form>
+                        </li>
+                        <!-- <li><a href="#"><span class="icon-notifications mr-3"></span>Notifications</a></li> -->
+                        <li>
+                            <form action="/logout" method="get">
+                                <a>
+                                    <span class="icon-sign-out mr-3"></span>
+                                    <button type="submit" class="form_nav">Log out</button>
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </main>
 
+        </aside>
+        <!-- partial:index.partial.html -->
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Home<a></li>
+                <li><a href="#">Saving<a></li>
+                <li><a href="#">About<a></li>
+                <li><a href="#">Contract<a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <section>
+            <div class=" row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="our-team">
+                        <div class="pic">
+                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
+                        </div>
+                        <h3 class="title">Sam</h3>
+                        <span class="post">Developer</span>
+                    </div>
+                </div>
 
+                <div class="col-md-3 col-sm-6">
+                    <div class="our-team">
+                        <div class="pic">
+                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
+                        </div>
+                        <h3 class="title">Sam</h3>
+                        <span class="post">Developer</span>
+                    </div>
+                </div>
 
+                <div class="col-md-3 col-sm-6">
+                    <div class="our-team">
+                        <div class="pic">
+                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
+                        </div>
+                        <h3 class="title">Sam</h3>
+                        <span class="post">Developer</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="our-team">
+                        <div class="pic">
+                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
+                        </div>
+                        <h3 class="title">Sam</h3>
+                        <span class="post">Developer</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- partial -->
+    </div>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>

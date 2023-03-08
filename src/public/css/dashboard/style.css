@@ -246,7 +246,7 @@ main .post-content .post-meta {
   width: 100%;
   height: 2px;
   display: block;
-  background: #000;
+  background: #ffff;
   border-radius: 2px;
   position: absolute;
   opacity: 1;
@@ -338,4 +338,7 @@ main .post-content .post-meta {
 .form_nav:hover {
   background: #fcfcfc;
   color: #000;
+}
+.form_nav:active {
+  color: #000000;
 }
