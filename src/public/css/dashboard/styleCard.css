@@ -4,6 +4,7 @@
 }
 
 .our-team {
+  margin-bottom: 22px;
   padding: 1.2rem 0.75rem;
   background: #fff;
   border-radius: 1rem;
@@ -38,6 +39,11 @@
   margin: 0 0 7px 0;
 }
 .our-team .post {
+  display: block;
+  font-size: 1rem;
+  color: #60c5a8;
+}
+.our-team .post_percent {
   display: block;
   font-size: 1rem;
   color: #60c5a8;
@@ -85,7 +91,7 @@
 .nav ul {
   display: flex;
   text-align: right;
-  margin-left: 60%;
+  margin-left: 75%;
   margin-bottom: 1.5rem;
 }
 .nav ul li {
@@ -98,4 +104,50 @@
   font-size: 20px;
   font-family: cursive;
   padding-right: 0.2rem;
+}
+@font-face {
+  font-family: "ShopeeDisplay-Bold";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-Bold.ttf");
+}
+@font-face {
+  font-family: "ShopeeDisplay-Black";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-Black.ttf");
+}
+@font-face {
+  font-family: "ShopeeDisplay-ExtraBold";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-ExtraBold.ttf");
+}
+@font-face {
+  font-family: "ShopeeDisplay-Light";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-Light.ttf");
+}
+@font-face {
+  font-family: "ShopeeDisplay-Medium";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-Medium.ttf");
+}
+@font-face {
+  font-family: "ShopeeDisplay-Regular";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-Regular.ttf");
+}
+.title-body {
+  margin: 2.5rem;
+  text-align: center;
+  padding-left: 27%;
+}
+.title-body h3 {
+  background-color: #60c5a8;
+  padding: 0.5rem;
+  padding-bottom: 2rem;
+  border: 1.5rem outset #60c5a8;
+  width: 60%;
+  border-radius: 15%;
+  font-family: "ShopeeDisplay-ExtraBold";
+  color: #ffffff;
+  font-size: 3rem;
+  text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
+    1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191,
+    1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191,
+    1px 10px 1px #919191, 1px 18px 6px rgba(16, 16, 16, 0.4),
+    1px 22px 10px rgba(16, 16, 16, 0.2), 1px 25px 35px rgba(16, 16, 16, 0.2),
+    1px 30px 60px rgba(16, 16, 16, 0.4);
 }

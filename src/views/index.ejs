@@ -31,7 +31,7 @@
             <div class="side-inner">
 
                 <div class="profile">
-                    <img src="images/person_profile.jpg" alt="Image" class="img-fluid">
+                    <img src="/img/none_avt.png" alt="Image" class="img-fluid">
                     <h3 class="name">
                         <%=getUser.firstName%>
                             <%=getUser.lastName%>
@@ -91,55 +91,104 @@
         <!-- partial:index.partial.html -->
         <nav class="nav">
             <ul>
-                <li><a href="#">Home<a></li>
-                <li><a href="#">Saving<a></li>
-                <li><a href="#">About<a></li>
-                <li><a href="#">Contract<a></li>
+                <li><a href="#">Total:<a></li>
+                <li>
+                    <a href="#">
+                        <%=listSavingBook.totalMoney%>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
+    <div class="title-body">
+        <h3>Quy Tắc 6 Chiếc Lọ</h3>
+    </div>
     <div class="container">
         <section>
             <div class=" row">
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="our-team">
+                        <h3 class="title">CHI TIÊU CẦN THIẾT</h3>
                         <div class="pic">
-                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
+                            <img src="/img/6-Bottle/NEC.jpg">
                         </div>
-                        <h3 class="title">Sam</h3>
-                        <span class="post">Developer</span>
+                        <h3 class="title">
+                            <%=listSavingBook.decNEC%>
+                        </h3>
+                        <span class="post">LỌ SỐ 1: CHI TIÊU CẦN THIẾT - NEC</span>
+                        <span class="post_percent">(55% THU NHẬP)</span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="our-team">
+                        <h3 class="title">TIẾT KIỆM DÀI HẠN</h3>
+                        <div class="pic">
+                            <img src="/img/6-Bottle/LTS.jpg">
+                        </div>
+                        <h3 class="title">
+                            <%=listSavingBook.decLTS%>
+                        </h3>
+                        <span class="post">LỌ SỐ 2: TIẾT KIỆM DÀI HẠN - LTS
+                        </span>
+                        <span class="post_percent">(10% THU NHẬP)</span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="our-team">
+                        <h3 class="title">QUỸ GIÁO DỤC</h3>
+                        <div class="pic">
+                            <img src="/img/6-Bottle/EDU.jpg">
+                        </div>
+                        <h3 class="title">
+                            <%=listSavingBook.decEDU%>
+                        </h3>
+                        <span class="post">LỌ SỐ 3: QUỸ GIÁO DỤC - EDU
+                        </span>
+                        <span class="post_percent">(10% THU NHẬP)</span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="our-team">
+                        <h3 class="title">HƯỞNG THỤ</h3>
+                        <div class="pic">
+                            <img src="/img/6-Bottle/PLAY.jpg">
+                        </div>
+                        <h3 class="title">
+                            <%=listSavingBook.decPLAY%>
+                        </h3>
+                        <span class="post">LỌ SỐ 4: HƯỞNG THỤ - PLAY</span>
+                        <span class="post_percent">(10% THU NHẬP)</span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="our-team">
+                        <h3 class="title">QUỸ TỰ DO TÀI CHÍNH</h3>
+                        <div class="pic">
+                            <img src="/img/6-Bottle/FFA.jpg">
+                        </div>
+                        <h3 class="title">
+                            <%=listSavingBook.decFFA%>
+                        </h3>
+                        <span class="post">LỌ SỐ 5: QUỸ TỰ DO TÀI CHÍNH - FFA
+                        </span>
+                        <span class="post_percent">(10% THU NHẬP)</span>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="our-team">
+                        <h3 class="title">QUỸ TỪ THIỆN</h3>
                         <div class="pic">
-                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
+                            <img src="/img/6-Bottle/GIVE.jpg">
                         </div>
-                        <h3 class="title">Sam</h3>
-                        <span class="post">Developer</span>
+                        <h3 class="title">
+                            <%=listSavingBook.decGIVE%>
+                        </h3>
+                        <span class="post">QUỸ TỪ THIỆN - GIVE
+                        </span>
+                        <span class="post_percent">(5% THU NHẬP)</span>
                     </div>
                 </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="our-team">
-                        <div class="pic">
-                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
-                        </div>
-                        <h3 class="title">Sam</h3>
-                        <span class="post">Developer</span>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="our-team">
-                        <div class="pic">
-                            <img src="https://cdn-icons-png.flaticon.com/512/146/146031.png">
-                        </div>
-                        <h3 class="title">Sam</h3>
-                        <span class="post">Developer</span>
-                    </div>
-                </div>
-
             </div>
         </section>
         <!-- partial -->

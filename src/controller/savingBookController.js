@@ -95,8 +95,17 @@ let postCreateNewSavingBook = async (req, res) => {
   }
 };
 let currencyFormattingVND = (money) => {
-  money = money.toLocaleString("it-IT", { style: "currency", currency: "VND" });
-  return money;
+  try {
+    money = parseInt(money);
+    money = money.toLocaleString("it-IT", {
+      style: "currency",
+      currency: "VND",
+    });
+    return money;
+  } catch (error) {
+    console.log(error);
+    return "0 VND";
+  }
 };
 let FormatterCurrency = (num) => {
   let money;
