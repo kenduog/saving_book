@@ -244,12 +244,13 @@ main .post-content .post-meta {
 .burger span,
 .burger:after {
   width: 100%;
-  height: 2px;
+  height: 5px;
   display: block;
   background: #ffff;
   border-radius: 2px;
   position: absolute;
   opacity: 1;
+  border: 0.1rem solid #919191;
 }
 
 .burger:before,
