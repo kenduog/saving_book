@@ -22,7 +22,25 @@
   margin-bottom: 1.5rem;
   transition: all 0.5s ease 0s;
 }
+.our-team .description {
+  display: none;
+  width: 80%;
+  height: 80%;
+}
+.our-team .description h1 {
+  font-family: "ShopeeDisplay-ExtraBold";
+  font-size: 1.5rem;
+  color: #ffffff;
+  padding: 1rem;
+}
+.our-team:hover .description {
+  display: inline-block;
+  background: #60c5a8;
+  border-radius: 1rem;
+  border: 0.5px solid #60c5a8;
+}
 .our-team:hover .pic {
+  display: none;
   background: #60c5a8;
   border-radius: 50%;
 }
