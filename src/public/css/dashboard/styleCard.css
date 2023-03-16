@@ -42,17 +42,20 @@
   font-weight: 600;
   color: #60c5a8;
   margin: 0 0 7px 0;
+  text-transform: uppercase;
 }
 .our-team .post {
   display: block;
   font-size: 1rem;
   color: #60c5a8;
+  text-transform: uppercase;
 }
 .our-team .post_percent {
   display: block;
   font-size: 1rem;
   color: #60c5a8;
   margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 .our-team .social {
   padding: 0;

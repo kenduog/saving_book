@@ -3948,12 +3948,14 @@ input[type="submit"].btn-block {
 }
 .nav {
   display: -ms-flexbox;
-  display: flex;
+  /* display: flex; */
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .nav-link {
   display: block;

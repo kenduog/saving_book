@@ -4,6 +4,10 @@ require("dotenv").config();
 
 let getHomePage = async (req, res) => {
   try {
+    let instagramName = process.env.YOUR_INSTAGRAM_NAME;
+    let facebookID = process.env.YOUR_FACEBOOK_ID;
+    let projectGithub = process.env.YOUR_PROJECT_GITHUB;
+    let youtubeChannel = process.env.YOUR_YOUTUBE_CHANNEL;
     const tokenCookie = req.cookies.tokenSVB;
     const globalUser = jwt.verify(tokenCookie, process.env.TOKEN_SECRECT);
     let [checkSV] = await pool.execute(
@@ -53,6 +57,10 @@ let getHomePage = async (req, res) => {
         return res.render("index.ejs", {
           listSavingBook: listSavingBook[0],
           getUser: getUser[0],
+          instagramName: instagramName,
+          facebookID: facebookID,
+          projectGithub: projectGithub,
+          youtubeChannel: youtubeChannel,
         });
       } catch (error) {
         console.log(error);

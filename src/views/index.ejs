@@ -16,6 +16,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="/css/dashboard/style.css">
     <link rel="stylesheet" href="/css/dashboard/styleCard.css">
+    <link rel="stylesheet" href="/css/dashboard/footer.css">
 
     <title>Dashboard</title>
 </head>
@@ -90,7 +91,7 @@
         <!-- partial:index.partial.html -->
         <nav class="nav">
             <ul>
-                <li><a href="#">Total:<a></li>
+                <li><a href="#">Total Income:<a></li>
                 <li>
                     <a href="#">
                         <%=listSavingBook.totalMoney%>
@@ -100,14 +101,14 @@
         </nav>
     </header>
     <div class="title-body">
-        <h3>TIẾT KIỆM CỦA BẠN</h3>
+        <h3>My Saving Book</h3>
     </div>
     <div class="container">
         <section>
             <div class=" row">
                 <div class="col-md-4 col-sm-6">
                     <div class="our-team">
-                        <h3 class="title">CHI TIÊU CẦN THIẾT</h3>
+                        <h3 class="title">Neccessities</h3>
                         <div class="pic">
                             <img src="/img/6-Bottle/NEC.jpg">
                         </div>
@@ -120,13 +121,13 @@
                         <h3 class="title">
                             <%=listSavingBook.decNEC%>
                         </h3>
-                        <span class="post">LỌ SỐ 1: CHI TIÊU CẦN THIẾT - NEC</span>
-                        <span class="post_percent">(55% THU NHẬP)</span>
+                        <span class="post">Bottle 1: Neccessities - NEC</span>
+                        <span class="post_percent">(55% INCOME)</span>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="our-team">
-                        <h3 class="title">TIẾT KIỆM DÀI HẠN</h3>
+                        <h3 class="title">Long term saving</h3>
                         <div class="pic">
                             <img src="/img/6-Bottle/LTS.jpg">
                         </div>
@@ -138,14 +139,14 @@
                         <h3 class="title">
                             <%=listSavingBook.decLTS%>
                         </h3>
-                        <span class="post">LỌ SỐ 2: TIẾT KIỆM DÀI HẠN - LTS
+                        <span class="post">Bottle 2: Long term saving - LTS
                         </span>
-                        <span class="post_percent">(10% THU NHẬP)</span>
+                        <span class="post_percent">(10% INCOME)</span>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="our-team">
-                        <h3 class="title">QUỸ GIÁO DỤC</h3>
+                        <h3 class="title">Education</h3>
                         <div class="pic">
                             <img src="/img/6-Bottle/EDU.jpg">
                         </div>
@@ -157,14 +158,14 @@
                         <h3 class="title">
                             <%=listSavingBook.decEDU%>
                         </h3>
-                        <span class="post">LỌ SỐ 3: QUỸ GIÁO DỤC - EDU
+                        <span class="post">Bottle 3: Education - EDU
                         </span>
-                        <span class="post_percent">(10% THU NHẬP)</span>
+                        <span class="post_percent">(10% INCOME)</span>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="our-team">
-                        <h3 class="title">HƯỞNG THỤ</h3>
+                        <h3 class="title">Play</h3>
                         <div class="pic">
                             <img src="/img/6-Bottle/PLAY.jpg">
                         </div>
@@ -176,13 +177,13 @@
                         <h3 class="title">
                             <%=listSavingBook.decPLAY%>
                         </h3>
-                        <span class="post">LỌ SỐ 4: HƯỞNG THỤ - PLAY</span>
-                        <span class="post_percent">(10% THU NHẬP)</span>
+                        <span class="post">Bottle 4: PLAY</span>
+                        <span class="post_percent">(10% INCOME)</span>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="our-team">
-                        <h3 class="title">QUỸ TỰ DO TÀI CHÍNH</h3>
+                        <h3 class="title">Financial Freedom</h3>
                         <div class="pic">
                             <img src="/img/6-Bottle/FFA.jpg">
                         </div>
@@ -195,15 +196,15 @@
                         <h3 class="title">
                             <%=listSavingBook.decFFA%>
                         </h3>
-                        <span class="post">LỌ SỐ 5: QUỸ TỰ DO TÀI CHÍNH - FFA
+                        <span class="post">Bottle 5: Financial Freedom - FFA
                         </span>
-                        <span class="post_percent">(10% THU NHẬP)</span>
+                        <span class="post_percent">(10% INCOME)</span>
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-6">
                     <div class="our-team">
-                        <h3 class="title">QUỸ TỪ THIỆN</h3>
+                        <h3 class="title">GIVE</h3>
                         <div class="pic">
                             <img src="/img/6-Bottle/GIVE.jpg">
                         </div>
@@ -216,9 +217,9 @@
                         <h3 class="title">
                             <%=listSavingBook.decGIVE%>
                         </h3>
-                        <span class="post">QUỸ TỪ THIỆN - GIVE
+                        <span class="post">Bottle 6: GIVE
                         </span>
-                        <span class="post_percent">(5% THU NHẬP)</span>
+                        <span class="post_percent">(5% INCOME)</span>
                     </div>
                 </div>
             </div>
@@ -230,5 +231,44 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
 </body>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+<footer class="hero">
+    <div class="container flex">
+        <div class="container__about">
+            <h2>About</h2>
+            <p>Saving provides a financial “backstop” for life's uncertainties and increases feelings of security and
+                peace of mind. Once an adequate emergency fund is established, savings can also provide the “seed money”
+                for higher-yielding investments such as stocks, bonds, and mutual funds.
+            </p>
+        </div>
+        <div class="container-pages flex">
+
+            <div class="container__recentpages">
+                <h2>Contract</h2>
+                <p>Contract with KenShine</p>
+            </div>
+        </div>
+    </div>
+    <div class="line__separete"></div>
+    <div class="by flex">
+        <p>Copyright © 2022 All Rights Reserved by KenShine.</p>
+        <div class="icons">
+            <a href="https://www.instagram.com/<%=instagramName%>/" target="_blank" class="icon1 icon--instagram">
+                <i class="ri-instagram-line"></i>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=<%=facebookID%>" target="_blank"
+                class="icon1 icon--facebook">
+                <i class="ri-facebook-line"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/<%=youtubeChannel%>" target="_blank" class="icon1 icon--youtube">
+                <i class="ri-youtube-line"></i>
+            </a>
+            <a href="https://github.com/<%=projectGithub%>" target="_blank" class="icon1 icon--github">
+                <i class="ri-github-line"></i>
+            </a>
+        </div>
+    </div>
+
+</footer>
 
 </html>

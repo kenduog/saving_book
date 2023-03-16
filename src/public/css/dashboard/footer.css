@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+* {
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+}
+
+.hero {
+  height: auto;
+  background: url("/img/bottle_footer.jpg") left bottom no-repeat;
+  background-color: #7fc0ae;
+  background-size: cover;
+  background-blend-mode: multiply;
+  /* background-attachment:fixed ;
+    activate when you put in your website (optional)
+  */
+  color: rgb(255, 255, 255);
+  padding: 30px 80px 30px 30px;
+}
+.hero .container {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex: 1;
+  background: transparent;
+}
+.flex {
+  display: flex;
+}
+.container__about {
+  margin-bottom: 30px;
+}
+.container__about h2 {
+  font-size: 20px;
+  font-family: cursive;
+  font-weight: bold;
+}
+.container__about p {
+  margin-top: 10px;
+  max-width: 300px;
+  color: rgb(255 255 255);
+  font-size: 14px;
+  font-family: cursive;
+  font-weight: bold;
+}
+
+.container-pages {
+  column-gap: 30px;
+}
+
+.container__recentpages h2 {
+  font-size: 20px;
+  font-family: cursive;
+  font-weight: bold;
+}
+.container__recentpages p {
+  margin-top: 10px;
+  max-width: 300px;
+  color: rgb(255 255 255);
+  font-size: 14px;
+  font-family: cursive;
+  font-weight: bold;
+}
+footer .by {
+  margin-top: 30px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+footer .by p {
+  color: rgba(255, 255, 255, 0.605);
+  font-size: 14px;
+}
+.line__separete {
+  margin-top: 30px;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  z-index: 999;
+}
+.icons {
+  margin-top: 20px;
+  display: flex;
+  column-gap: 25px;
+}
+
+.icon1 {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 50%;
+  outline: 2px solid #fff;
+  transition-property: outline-offset, outline-color, background-color;
+  transition-duration: 0.25s;
+}
+
+.icon1:hover {
+  outline-offset: 4px;
+
+  color: #fff;
+  font-size: 20px;
+}
+
+.icon1:hover i {
+  animation: shake 0.25s;
+}
+
+.icon--instagram:hover {
+  background-image: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  outline-color: #a02d76;
+}
+
+.icon--facebook:hover {
+  background-color: #1da1f2;
+  outline-color: #1da1f2;
+}
+
+.icon--youtube:hover {
+  background-color: #f00;
+  outline-color: #fff;
+}
+
+.icon--github:hover {
+  background-color: #000000;
+  outline-color: #000000;
+}
+
+@keyframes shake {
+  10% {
+    transform: rotate(15deg);
+  }
+
+  20% {
+    transform: rotate(-15deg);
+  }
+
+  30% {
+    transform: rotate(15deg);
+  }
+
+  40% {
+    transform: rotate(-15deg);
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .hero {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container__about h2 {
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: bold;
+  }
+  .container__about p {
+    font-size: 12px;
+  }
+  .container__recentpages h2 {
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: bold;
+  }
+  .container-pages ul a {
+    font-size: 12px;
+  }
+  footer .by p {
+    font-size: 12px;
+  }
+}
