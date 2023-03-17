@@ -118,13 +118,13 @@ let currencyFormattingVND = (money) => {
 let FormatterCurrency = (num) => {
   let money;
   if (Math.abs(num) > 999999999) {
-    money = Math.sign(num) * (Math.abs(num) / 1000000000).toFixed(1) + "B";
+    money = Math.sign(num) * (Math.abs(num) / 1000000000).toFixed(2) + "B";
   } else {
     if (Math.abs(num) > 999999) {
-      money = Math.sign(num) * (Math.abs(num) / 1000000).toFixed(1) + "M";
+      money = Math.sign(num) * (Math.abs(num) / 1000000).toFixed(2) + "M";
     } else {
       if (Math.abs(num) > 999) {
-        money = Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k";
+        money = Math.sign(num) * (Math.abs(num) / 1000).toFixed(2) + "k";
       } else {
         money = Math.sign(num) * Math.abs(num);
       }
