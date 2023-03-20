@@ -10,8 +10,10 @@
 
 <body>
     <form action="/welcome" method="post">
-        <h1 class="h1Welcome">Welcome <%=getUser.lastName%>
-        </h1>
+        <div class="title-body">
+            <h3>Welcome <%=getUser.lastName%>
+            </h3>
+        </div>
         <div class="containerWelcome">
             <label for="svMoney"><b>Input Money</b></label>
             <input type="number" placeholder="Enter Money" name="svMoney" required>

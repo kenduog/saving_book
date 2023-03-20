@@ -1,5 +1,19 @@
+@font-face {
+  font-family: "ShopeeDisplay-ExtraBold";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-ExtraBold.ttf");
+}
+@font-face {
+  font-family: "ShopeeDisplay-Black";
+  src: url("/fonts/Shopee Font Full VH/ShopeeDisplay-Black.ttf");
+}
+body {
+  background-color: #ffffff;
+}
 form {
-  border: 3px solid #f1f1f1;
+  /* border: 3px solid #f1f1f1; */
+  width: 30%;
+  padding-left: 36%;
+  text-align: center;
 }
 
 /* Full-width inputs */
@@ -22,17 +36,20 @@ input::-webkit-inner-spin-button {
 }
 /* Set a style for all buttons */
 button {
-  background-color: #04aa6d;
+  font-size: 110%;
+  background-color: #60c5a8;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 100%;
+  font-family: "ShopeeDisplay-Black";
 }
 
 /* Add a hover effect for buttons */
 button:hover {
+  background-color: #0d9b73;
   opacity: 0.8;
 }
 
@@ -44,21 +61,33 @@ button:hover {
 }
 
 /* Center the avatar image inside this container */
-.imgcontainer {
+.title-body {
+  margin: 2.5rem;
   text-align: center;
-  margin: 24px 0 12px 0;
+  padding-left: 27%;
 }
 
-/* Avatar image */
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-  width: 15%;
+.title-body h3 {
+  background-color: #60c5a8;
+  padding-bottom: 2rem;
+  border: 1.5rem outset #60c5a8;
+  width: 60%;
+  border-radius: 15%;
+  font-family: "ShopeeDisplay-Black";
+  color: #ffffff;
+  font-size: 3rem;
+  text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
+    1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191,
+    1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191,
+    1px 10px 1px #919191, 1px 18px 6px rgba(16, 16, 16, 0.4),
+    1px 22px 10px rgba(16, 16, 16, 0.2), 1px 25px 35px rgba(16, 16, 16, 0.2),
+    1px 30px 60px rgba(16, 16, 16, 0.4);
 }
 
 /* Add padding to containers */
 .container {
   padding: 16px;
+  font-family: "ShopeeDisplay-Black";
 }
 
 /* The "Forgot password" text */

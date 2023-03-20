@@ -37,6 +37,16 @@
   border-radius: 50%;
 }
 .our-team .title {
+  font-family: "ShopeeDisplay-Black";
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #60c5a8;
+  margin: 0 0 7px 0;
+  text-transform: uppercase;
+}
+.our-team .title-money {
+  font-family: "ShopeeDisplay-Light";
   display: block;
   font-size: 1.5rem;
   font-weight: 600;
@@ -45,6 +55,7 @@
   text-transform: uppercase;
 }
 .our-team .post {
+  font-family: "ShopeeDisplay-Regular";
   display: block;
   font-size: 1rem;
   color: #60c5a8;
@@ -144,12 +155,11 @@
 }
 .title-body h3 {
   background-color: #60c5a8;
-  padding: 0.5rem;
   padding-bottom: 2rem;
   border: 1.5rem outset #60c5a8;
   width: 60%;
   border-radius: 15%;
-  font-family: "ShopeeDisplay-ExtraBold";
+  font-family: "ShopeeDisplay-Black";
   color: #ffffff;
   font-size: 3rem;
   text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
