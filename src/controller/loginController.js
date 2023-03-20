@@ -3,39 +3,66 @@ import jwt from "jsonwebtoken";
 require("dotenv").config();
 
 let getLoginPage = (req, res) => {
-  return res.render("login.ejs");
+  return res.render("login.ejs", {
+    message: req.flash("status"),
+    status: "success",
+  });
 };
 let postLoginPage = async (req, res) => {
-  let { uPhone, uPassword } = req.body;
-  let [objUser] = await pool.execute(
-    "select id,phoneNumber,password from user_account where phoneNumber = ? and status = 1",
-    [uPhone]
-  );
-  try {
-    if (objUser.length == 1) {
-      //decode password
-      let objPassword = Buffer.from(objUser[0].password, "base64").toString(
-        "ascii"
-      );
-      if (objPassword == uPassword) {
-        const objUserToken = {
-          id: objUser[0].id,
-          phone: objUser[0].phoneNumber,
-        };
-        let statusCookie = setCookies(req, res, objUserToken);
-        if (statusCookie == "Success") {
-          return res.redirect("/");
+  if (req.body.completeAccount != undefined) {
+    req.flash("warning", "Incomplete Account");
+    res.render("login.ejs", {
+      message: req.flash("warning"),
+      status: "warning",
+    });
+  } else {
+    let { uPhone, uPassword } = req.body;
+    let [objUser] = await pool.execute(
+      "select id,phoneNumber,password from user_account where phoneNumber = ? and status = 1",
+      [uPhone]
+    );
+    try {
+      if (objUser.length == 1) {
+        //decode password
+        let objPassword = Buffer.from(objUser[0].password, "base64").toString(
+          "ascii"
+        );
+        if (objPassword == uPassword) {
+          const objUserToken = {
+            id: objUser[0].id,
+            phone: objUser[0].phoneNumber,
+          };
+          let statusCookie = setCookies(req, res, objUserToken);
+          if (statusCookie == "Success") {
+            return res.redirect("/");
+          } else {
+            req.flash("warning", "Cookie Expires");
+            return res.render("login.ejs", {
+              message: req.flash("warning"),
+              status: "warning",
+            });
+          }
         } else {
-          return res.redirect("/login");
+          req.flash("error", "Password Incorrect ");
+          return res.render("login.ejs", {
+            message: req.flash("error"),
+            status: "danger",
+          });
         }
       } else {
-        return res.send("Password is not correct");
+        req.flash("error", "User Not Exist ");
+        return res.render("login.ejs", {
+          message: req.flash("error"),
+          status: "danger",
+        });
       }
-    } else {
-      return res.send("User not exist");
+    } catch (error) {
+      req.flash("error", error);
+      return res.render("login.ejs", {
+        message: req.flash("error"),
+        status: "danger",
+      });
     }
-  } catch (error) {
-    return res.render("login.ejs");
   }
 };
 

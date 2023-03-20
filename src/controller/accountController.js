@@ -1,7 +1,10 @@
 import pool from "../configs/connectDB";
 
 let getRegisterPage = (req, res) => {
-  return res.render("register.ejs");
+  return res.render("register.ejs", {
+    message: req.flash("status"),
+    status: "success",
+  });
 };
 let postRegisterPage = async (req, res) => {
   // create account
@@ -11,7 +14,11 @@ let postRegisterPage = async (req, res) => {
     [uPhone]
   );
   if (objUser.length == 1) {
-    res.send("User already exists");
+    req.flash("error", "User Already Exists");
+    res.render("register.ejs", {
+      message: req.flash("error"),
+      status: "danger",
+    });
   } else {
     if (uPassword == uConfirmPassword) {
       //encode password
@@ -24,15 +31,27 @@ let postRegisterPage = async (req, res) => {
         "select id from user_account where phoneNumber = ? and password = ? and status = 1",
         [uPhone, ePassword]
       );
-      res.render("complete-account.ejs", { userID: userID[0].id });
+      req.flash("success", "Sign Up Success");
+      res.render("complete-account.ejs", {
+        userID: userID[0].id,
+        message: req.flash("success"),
+        status: "success",
+      });
     } else {
-      res.send("Password is dont correct");
+      req.flash("error", "Wrong Confirmation Password");
+      res.render("register.ejs", {
+        message: req.flash("error"),
+        status: "warning",
+      });
     }
   }
   return res;
 };
 let getCompleteAccountPage = (req, res) => {
-  res.render("complete-account.ejs");
+  res.render("complete-account.ejs", {
+    message: req.flash("status"),
+    status: "success",
+  });
 };
 let postCompleteAccountPage = async (req, res) => {
   let userID = req.params.userID;
@@ -42,9 +61,17 @@ let postCompleteAccountPage = async (req, res) => {
       "UPDATE user_account set firstName = ?, lastName =?, BOD =?, email = ? where id = ?",
       [uFirstName, uLastName, uBOD, uEmail, userID]
     );
-    res.redirect("/login");
+    req.flash("success", "Complete Account");
+    res.render("login.ejs", {
+      message: req.flash("success"),
+      status: "success",
+    });
   } catch (error) {
-    res.redirect("/login");
+    req.flash("error", error);
+    res.render("login.ejs", {
+      message: req.flash("error"),
+      status: "danger",
+    });
   }
   return res;
 };

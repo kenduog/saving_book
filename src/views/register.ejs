@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style_flash_message.css">
     <title>Register</title>
 </head>
 
@@ -13,19 +14,23 @@
         <div class="imgcontainer">
             <img src="/img/avt_login.png" alt="Avatar" class="avatar">
         </div>
+        <% if(message.length> 0) { %>
+            <div class="alert alert-<%=status%>">
+                <%= message %>
+            </div>
+            <% } %>
+                <div class="container">
+                    <label for="uPhone"><b>Phone</b></label>
+                    <input type="number" placeholder="Enter Phone Number" name="uPhone" required>
 
-        <div class="container">
-            <label for="uPhone"><b>Phone</b></label>
-            <input type="number" placeholder="Enter Phone Number" name="uPhone" required>
+                    <label for="uPassword"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="uPassword" required>
 
-            <label for="uPassword"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="uPassword" required>
+                    <label for="uConfirmPassword"><b>Confirm Password</b></label>
+                    <input type="password" placeholder="Enter Confirm Password" name="uConfirmPassword" required>
 
-            <label for="uConfirmPassword"><b>Confirm Password</b></label>
-            <input type="password" placeholder="Enter Confirm Password" name="uConfirmPassword" required>
-
-            <button type="submit">Register</button>
-        </div>
+                    <button type="submit">Register</button>
+                </div>
     </form>
     <form action="/login" method="get">
         <div class="container" style="background-color:#f1f1f1">
