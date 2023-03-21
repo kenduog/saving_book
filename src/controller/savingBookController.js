@@ -63,20 +63,27 @@ let getHomePage = async (req, res) => {
           youtubeChannel: youtubeChannel,
         });
       } catch (error) {
-        console.log(error);
-        return res.render("login.ejs");
+        req.flash("danger", error);
+        return res.render("login.ejs", {
+          message: req.flash("status"),
+          status: "danger",
+        });
       }
     } else {
       return res.render("welcome.ejs", { getUser: getUser[0] });
     }
   } catch (error) {
-    console.log(error);
-    return res.render("login.ejs");
+    req.flash("danger", error);
+    return res.render("login.ejs", {
+      message: req.flash("status"),
+      status: "danger",
+    });
   }
 };
 let postCreateNewSavingBook = async (req, res) => {
   try {
     let { userID, svMoney } = req.body;
+    svMoney = parseInt(svMoney.split("VND")[0].replaceAll(",", ""));
     let nec = 0; //LỌ SỐ 1: CHI TIÊU CẦN THIẾT - NEC (55% THU NHẬP)
     let lts = 0; //LỌ SỐ 2: TIẾT KIỆM DÀI HẠN - LTS (10% THU NHẬP)
     let edu = 0; //LỌ SỐ 3: QUỸ GIÁO DỤC - EDU (10% THU NHẬP)
@@ -98,8 +105,11 @@ let postCreateNewSavingBook = async (req, res) => {
     );
     return res.redirect("/");
   } catch (error) {
-    console.log(error);
-    return res.redirect("login.ejs");
+    req.flash("danger", error);
+    return res.render("login.ejs", {
+      message: req.flash("status"),
+      status: "danger",
+    });
   }
 };
 let currencyFormattingVND = (money) => {

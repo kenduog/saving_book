@@ -45,6 +45,7 @@ button {
   cursor: pointer;
   width: 100%;
   font-family: "ShopeeDisplay-Black";
+  border: 0.2rem solid #a4d4c7;
 }
 
 /* Add a hover effect for buttons */
