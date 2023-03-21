@@ -1,13 +1,15 @@
 import pool from "../configs/connectDB";
 import jwt from "jsonwebtoken";
 require("dotenv").config();
+const instagramName = process.env.YOUR_INSTAGRAM_NAME;
+const facebookID = process.env.YOUR_FACEBOOK_ID;
+const projectGithub = process.env.YOUR_PROJECT_GITHUB;
+const youtubeChannel = process.env.YOUR_YOUTUBE_CHANNEL;
+var glbUser = [];
+var glbListSavingBook = [];
 
 let getHomePage = async (req, res) => {
   try {
-    let instagramName = process.env.YOUR_INSTAGRAM_NAME;
-    let facebookID = process.env.YOUR_FACEBOOK_ID;
-    let projectGithub = process.env.YOUR_PROJECT_GITHUB;
-    let youtubeChannel = process.env.YOUR_YOUTUBE_CHANNEL;
     const tokenCookie = req.cookies.tokenSVB;
     const globalUser = jwt.verify(tokenCookie, process.env.TOKEN_SECRECT);
     let [checkSV] = await pool.execute(
@@ -18,6 +20,8 @@ let getHomePage = async (req, res) => {
       "select id,firstName,lastName,BOD,email,phoneNumber,image from user_account where id = ?",
       [globalUser.id]
     );
+    // add global user
+    glbUser = getUser[0];
     if (checkSV.length == 1) {
       try {
         let [listSavingBook] = await pool.execute(
@@ -54,6 +58,8 @@ let getHomePage = async (req, res) => {
         listSavingBook[0].decGIVE = currencyFormattingVND(
           listSavingBook[0].decGIVE
         );
+        // add global List Saving Book
+        glbListSavingBook = listSavingBook[0];
         return res.render("index.ejs", {
           listSavingBook: listSavingBook[0],
           getUser: getUser[0],
@@ -143,7 +149,18 @@ let FormatterCurrency = (num) => {
   return money;
 };
 
+let getRulePage = (req, res) => {
+  return res.render("rule.ejs", {
+    listSavingBook: glbListSavingBook,
+    getUser: glbUser,
+    instagramName: instagramName,
+    facebookID: facebookID,
+    projectGithub: projectGithub,
+    youtubeChannel: youtubeChannel,
+  });
+};
 module.exports = {
   getHomePage,
   postCreateNewSavingBook,
+  getRulePage,
 };
