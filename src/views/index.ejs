@@ -2,104 +2,13 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="/fonts/style.css">
-
-    <link rel="stylesheet" href="/css/dashboard/owl.carousel.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/dashboard/bootstrap.min.css">
-
-    <!-- Style -->
-    <link rel="stylesheet" href="/css/dashboard/style.css">
-    <link rel="stylesheet" href="/css/dashboard/styleCard.css">
-    <link rel="stylesheet" href="/css/dashboard/footer.css">
-    <link rel="stylesheet" href="/fonts/remixicon.css">
-
-    <title>Dashboard</title>
+    <%- include('partials/head.ejs') %>
+        <title>Dashboard</title>
 </head>
 
 <body>
     <header>
-        <aside class="sidebar">
-            <div class="toggle">
-                <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
-                    <span></span>
-                </a>
-            </div>
-            <div class="side-inner">
-
-                <div class="profile">
-                    <img src="/img/none_avt.png" alt="Image" class="img-fluid">
-                    <h3 class="name">
-                        <%=getUser.firstName%>
-                            <%=getUser.lastName%>
-                    </h3>
-                    <span class="country">
-                        <%=getUser.email%>
-                    </span>
-                </div>
-
-                <div class="counter d-flex justify-content-center">
-                    <!-- <div class="row justify-content-center"> -->
-                    <div class="col">
-                        <strong class="number">
-                            <%=listSavingBook.totalMoneyStr%>
-                        </strong>
-                        <span class="number-label">Total</span>
-                    </div>
-                    <div class="col">
-                        <strong class="number">
-                            <%=listSavingBook.decNECStr%>
-                        </strong>
-                        <span class="number-label">Need</span>
-                    </div>
-                    <div class="col">
-                        <strong class="number">
-                            <%=listSavingBook.decPLAYStr%>
-                        </strong>
-                        <span class="number-label">Play</span>
-                    </div>
-                    <!-- </div> -->
-                </div>
-
-                <div class="nav-menu">
-                    <ul>
-                        <li class="active">
-                            <form action="/" method="get">
-                                <a href="#">
-                                    <span class="icon-home mr-3"></span>
-                                    <button class="form_nav" type="submit">Dashboard</button>
-                                </a>
-                            </form>
-                        </li>
-                        <li>
-                            <form action="/logout" method="get">
-                                <a>
-                                    <span class="icon-sign-out mr-3"></span>
-                                    <button type="submit" class="form_nav">Log out</button>
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </aside>
-        <!-- partial:index.partial.html -->
-        <nav class="nav">
-            <ul>
-                <li><a href="#">Balance:<a></li>
-                <li>
-                    <a href="#">
-                        <%=listSavingBook.totalMoney%>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <%- include('partials/sidebar.ejs') %>
     </header>
     <div class="title-body">
         <h3>My Saving Book</h3>
@@ -232,43 +141,6 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
 </body>
-<footer class="hero">
-    <div class="container flex">
-        <div class="container__about">
-            <h2>About</h2>
-            <p>Saving provides a financial “backstop” for life's uncertainties and increases feelings of security and
-                peace of mind. Once an adequate emergency fund is established, savings can also provide the “seed money”
-                for higher-yielding investments such as stocks, bonds, and mutual funds.
-            </p>
-        </div>
-        <div class="container-pages flex">
-
-            <div class="container__recentpages">
-                <h2>Contract</h2>
-                <p>Contract with KenShine</p>
-            </div>
-        </div>
-    </div>
-    <div class="line__separete"></div>
-    <div class="by flex">
-        <p>Copyright © 2022 All Rights Reserved by KenShine.</p>
-        <div class="icons">
-            <a href="https://www.instagram.com/<%=instagramName%>/" target="_blank" class="icon1 icon--instagram">
-                <i class="ri-instagram-line"></i>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=<%=facebookID%>" target="_blank"
-                class="icon1 icon--facebook">
-                <i class="ri-facebook-line"></i>
-            </a>
-            <a href="https://www.youtube.com/channel/<%=youtubeChannel%>" target="_blank" class="icon1 icon--youtube">
-                <i class="ri-youtube-line"></i>
-            </a>
-            <a href="https://github.com/<%=projectGithub%>" target="_blank" class="icon1 icon--github">
-                <i class="ri-github-line"></i>
-            </a>
-        </div>
-    </div>
-
-</footer>
+<%- include('partials/footer.ejs') %>
 
 </html>
