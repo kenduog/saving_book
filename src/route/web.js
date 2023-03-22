@@ -59,7 +59,18 @@ const initWebRoute = (app) => {
   );
 
   //Welcome -- first input saving book
-  router.post("/welcome", savingbookController.postCreateNewSavingBook);
+  router.post(
+    "/welcome",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.postCreateNewSavingBook
+  );
 
   //Rule
   router.get(

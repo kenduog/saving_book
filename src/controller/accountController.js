@@ -61,11 +61,7 @@ let postCompleteAccountPage = async (req, res) => {
       "UPDATE user_account set firstName = ?, lastName =?, BOD =?, email = ? where id = ?",
       [uFirstName, uLastName, uBOD, uEmail, userID]
     );
-    req.flash("success", "Complete Account");
-    res.render("login.ejs", {
-      message: req.flash("success"),
-      status: "success",
-    });
+    res.redirect("/login");
   } catch (error) {
     req.flash("error", error);
     res.render("login.ejs", {

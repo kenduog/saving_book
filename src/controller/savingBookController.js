@@ -76,7 +76,11 @@ let getHomePage = async (req, res) => {
         });
       }
     } else {
-      return res.render("welcome.ejs", { getUser: getUser[0] });
+      return res.render("welcome.ejs", {
+        getUser: getUser[0],
+        message: req.flash("status"),
+        status: "success",
+      });
     }
   } catch (error) {
     req.flash("danger", error);

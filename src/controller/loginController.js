@@ -11,7 +11,7 @@ let getLoginPage = (req, res) => {
 let postLoginPage = async (req, res) => {
   if (req.body.completeAccount != undefined) {
     req.flash("warning", "Incomplete Account");
-    res.render("login.ejs", {
+    return res.render("login.ejs", {
       message: req.flash("warning"),
       status: "warning",
     });
