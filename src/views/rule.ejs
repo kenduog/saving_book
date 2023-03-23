@@ -8,7 +8,90 @@
 
 <body>
     <header>
-        <%- include('partials/sidebar.ejs') %>
+        <aside class="sidebar">
+            <div class="toggle">
+                <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                    <span></span>
+                </a>
+            </div>
+            <div class="side-inner">
+
+                <div class="profile">
+                    <img src="/img/none_avt.png" alt="Image" class="img-fluid">
+                    <h3 class="name">
+                        <%=getUser.firstName%>
+                            <%=getUser.lastName%>
+                    </h3>
+                    <span class="country">
+                        <%=getUser.email%>
+                    </span>
+                </div>
+
+                <div class="counter d-flex justify-content-center">
+                    <!-- <div class="row justify-content-center"> -->
+                    <div class="col">
+                        <strong class="number">
+                            <%=listSavingBook.totalMoneyStr%>
+                        </strong>
+                        <span class="number-label">Total</span>
+                    </div>
+                    <div class="col">
+                        <strong class="number">
+                            <%=listSavingBook.decNECStr%>
+                        </strong>
+                        <span class="number-label">Need</span>
+                    </div>
+                    <div class="col">
+                        <strong class="number">
+                            <%=listSavingBook.decPLAYStr%>
+                        </strong>
+                        <span class="number-label">Play</span>
+                    </div>
+                    <!-- </div> -->
+                </div>
+                <div class="nav-menu">
+                    <ul>
+                        <li>
+                            <form action="/" method="get">
+                                <a href="#">
+                                    <span class="icon-home mr-3"></span>
+                                    <button class="form_nav" type="submit">Dashboard</button>
+                                </a>
+                            </form>
+                        </li>
+                        <li class="active">
+                            <form action="/rule" method="get">
+                                <a>
+                                    <span class="icon-book mr-3"></span>
+                                    <button type="submit" class="form_nav">Rule of 6 jars
+                                    </button>
+                                </a>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="/logout" method="get">
+                                <a>
+                                    <span class="icon-sign-out mr-3"></span>
+                                    <button type="submit" class="form_nav">Log out</button>
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </aside>
+        <!-- partial:index.partial.html -->
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Balance:<a></li>
+                <li>
+                    <a href="#">
+                        <%=listSavingBook.totalMoney%>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </header>
     <div class="title-body">
         <h3>Rule Saving Book</h3>
