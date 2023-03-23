@@ -23,11 +23,6 @@
   margin-bottom: 1.5rem;
   transition: all 0.5s ease 0s;
 }
-.our-team .description {
-  display: none;
-  width: 80%;
-  height: 80%;
-}
 .our-team:hover .pic {
   background: #60c5a8;
   border-radius: 50%;
@@ -169,4 +164,72 @@
     1px 10px 1px #919191, 1px 18px 6px rgba(16, 16, 16, 0.4),
     1px 22px 10px rgba(16, 16, 16, 0.2), 1px 25px 35px rgba(16, 16, 16, 0.2),
     1px 30px 60px rgba(16, 16, 16, 0.4);
+}
+.container .card {
+  position: relative;
+  max-width: 89%;
+  height: 240px;
+  background-color: #fff;
+  margin: 30px 10px;
+  padding: 20px 15px;
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  transition: 0.3s ease-in-out;
+  border-radius: 15px;
+}
+.container .card:hover {
+  height: 540px;
+}
+
+.container .card .image {
+  position: relative;
+  width: 260px;
+  height: 260px;
+
+  top: -40%;
+  left: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.container .card .image img {
+  max-width: 101%;
+  border-radius: 15px;
+}
+
+.container .card .content {
+  position: relative;
+  top: -140px;
+  padding: 10px 15px;
+  color: #111;
+  text-align: center;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.container .card:hover .content {
+  margin-top: 30px;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+.container .card .content h3 {
+  font-family: "ShopeeDisplay-Black";
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #60c5a8;
+  margin: 0 0 7px 0;
+  text-transform: uppercase;
+}
+.container .card .content p {
+  font-family: "ShopeeDisplay-Regular";
+  color: #111;
+}
+.col-md-4 {
+  padding-top: 10%;
 }
