@@ -1,0 +1,58 @@
+<header>
+    <aside class="sidebar">
+        <div class="toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                <span></span>
+            </a>
+        </div>
+        <div class="side-inner">
+
+            <div class="profile">
+                <img src="/img/none_avt.png" alt="Image" class="img-fluid">
+                <h3 class="name">
+                    <%=getUser.firstName%>
+                        <%=getUser.lastName%>
+                </h3>
+                <span class="country">
+                    <%=getUser.email%>
+                </span>
+            </div>
+
+            <div class="counter d-flex justify-content-center">
+                <!-- <div class="row justify-content-center"> -->
+                <div class="col">
+                    <strong class="number">
+                        <%=listSavingBook.totalMoneyStr%>
+                    </strong>
+                    <span class="number-label">Total</span>
+                </div>
+                <div class="col">
+                    <strong class="number">
+                        <%=listSavingBook.decNECStr%>
+                    </strong>
+                    <span class="number-label">Need</span>
+                </div>
+                <div class="col">
+                    <strong class="number">
+                        <%=listSavingBook.decPLAYStr%>
+                    </strong>
+                    <span class="number-label">Play</span>
+                </div>
+                <!-- </div> -->
+            </div>
+            <%- include('nav-menu.ejs') %>
+        </div>
+
+    </aside>
+    <!-- partial:index.partial.html -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Balance:<a></li>
+            <li>
+                <a href="#">
+                    <%=listSavingBook.totalMoney%>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>

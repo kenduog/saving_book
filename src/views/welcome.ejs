@@ -1,30 +1,24 @@
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style_Welcome.css">
-    <title>Welcome</title>
-</head>
+<%- include('welcome/head.ejs') %>
 
-<body>
-    <form action="/welcome" method="post">
-        <div class="title-body">
-            <h3>Welcome <%=getUser.lastName%>
-            </h3>
-        </div>
-        <div class="containerWelcome">
-            <%- include('partials/alert.ejs') %>
-                <label for="svMoney"><b>Balance Income:</b></label>
-                <input type="text" name="svMoney" id="svMoney" data-type="currency" placeholder="Enter Money">
+    <body>
+        <form action="/welcome" method="post">
+            <div class="title-body">
+                <h3>Welcome <%=getUser.lastName%>
+                </h3>
+            </div>
+            <div class="containerWelcome">
+                <%- include('partials/alert.ejs') %>
+                    <label for="svMoney"><b>Balance Income:</b></label>
+                    <input type="text" name="svMoney" id="svMoney" data-type="currency" placeholder="Enter Money">
 
-                <input type="text" name="userID" value="<%=getUser.id%>" hidden>
-                <button type="submit" class="btnSvConfirm">Confirm</button>
-        </div>
-    </form>
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/currency.js"></script>
-</body>
+                    <input type="text" name="userID" value="<%=getUser.id%>" hidden>
+                    <button type="submit" class="btnSvConfirm">Confirm</button>
+            </div>
+        </form>
+        <script src="/js/jquery-3.3.1.min.js"></script>
+        <script src="/js/currency.js"></script>
+    </body>
 
 </html>

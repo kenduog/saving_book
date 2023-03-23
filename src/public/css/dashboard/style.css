@@ -340,6 +340,6 @@ main .post-content .post-meta {
   background: #fcfcfc;
   color: #000;
 }
-.form_nav:active {
+aside .side-inner .nav-menu ul li.active .form_nav {
   color: #000000;
 }

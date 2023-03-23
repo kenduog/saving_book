@@ -1,0 +1,38 @@
+<div class="nav-menu">
+    <ul>
+        <li class="<%=active=='/'?'active':''%>">
+            <a href="#">
+                <form action="/" method="get">
+                    <span class="icon-home mr-3"></span>
+                    <button class="form_nav" type="submit">Dashboard</button>
+                </form>
+            </a>
+        </li>
+        <li class="<%=active=='rule'?'active':''%>">
+            <a>
+                <form action="/rule" method="get">
+                    <span class="icon-book mr-3"></span>
+                    <button type="submit" class="form_nav">Rule of 6 jars
+                    </button>
+                </form>
+            </a>
+        </li>
+        <li class="<%=active=='add-money'?'active':''%>">
+            <a>
+                <form action="/add-any-1-in-6-jar" method="get">
+                    <span class="icon-money mr-3"></span>
+                    <button type="submit" class="form_nav">Add money
+                    </button>
+                </form>
+            </a>
+        </li>
+        <li>
+            <a>
+                <form action="/logout" method="get">
+                    <span class="icon-sign-out mr-3"></span>
+                    <button type="submit" class="form_nav">Log out</button>
+                </form>
+            </a>
+        </li>
+    </ul>
+</div>

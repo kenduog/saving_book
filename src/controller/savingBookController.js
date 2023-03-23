@@ -67,6 +67,7 @@ let getHomePage = async (req, res) => {
           facebookID: facebookID,
           projectGithub: projectGithub,
           youtubeChannel: youtubeChannel,
+          active: "/",
         });
       } catch (error) {
         req.flash("danger", error);
@@ -129,7 +130,7 @@ let currencyFormattingVND = (money) => {
       style: "currency",
       currency: "VND",
     });
-    return money;
+    return money.replaceAll(",", ".");
   } catch (error) {
     console.log(error);
     return "0 VND";
@@ -161,10 +162,24 @@ let getRulePage = (req, res) => {
     facebookID: facebookID,
     projectGithub: projectGithub,
     youtubeChannel: youtubeChannel,
+    active: "rule",
+  });
+};
+//6 Jar
+let getAddAny1In6Jar = (req, res) => {
+  return res.render("Add-Any-1-In-6-Jar.ejs", {
+    listSavingBook: glbListSavingBook,
+    getUser: glbUser,
+    instagramName: instagramName,
+    facebookID: facebookID,
+    projectGithub: projectGithub,
+    youtubeChannel: youtubeChannel,
+    active: "add-money",
   });
 };
 module.exports = {
   getHomePage,
   postCreateNewSavingBook,
   getRulePage,
+  getAddAny1In6Jar,
 };

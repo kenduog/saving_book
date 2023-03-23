@@ -86,6 +86,20 @@ const initWebRoute = (app) => {
     savingbookController.getRulePage
   );
 
+  //Edit 6 Jar
+  router.get(
+    "/add-any-1-in-6-jar",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.getAddAny1In6Jar
+  );
+
   return app.use("/", router);
 };
 export default initWebRoute;
