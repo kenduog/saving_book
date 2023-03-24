@@ -11,95 +11,108 @@
         <div class="title-body">
             <h3>Change money in 6 jars</h3>
         </div>
-        <div class="container">
+        <form action="/add-money" method="post">
+            <div class="alert">
+                <%- include('partials/alert.ejs') %>
+            </div>
             <section>
-                <div class=" row">
+                <div class="row row-add-money">
                     <div class="col-md-4 col-sm-6">
-                        <div class="edit-6-jar">
+                        <div class="our-team">
                             <h3 class="title">Neccessities</h3>
                             <div class="pic">
                                 <img src="/img/6-Bottle/NEC.jpg">
                             </div>
-                            <input type="text" class="title-money" name="svMoney" id="svMoney" data-type="currency"
-                                placeholder="Enter Money" value="<%=listSavingBook.decNEC%>">
-                            <span class="post">Bottle 1: Neccessities - NEC</span>
-                            <span class="post_percent">(55% INCOME)</span>
+                            <input class="title-money enter-money" type="text" name="add_NEC" data-type="currency"
+                                placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-add-money">
+                                    <%=ShowAddMoney.NEC%>
+                                </span>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="edit-6-jar">
+                        <div class="our-team">
                             <h3 class="title">Long term saving</h3>
                             <div class="pic">
                                 <img src="/img/6-Bottle/LTS.jpg">
                             </div>
-                            <h3 class="title-money">
-                                <%=listSavingBook.decLTS%>
-                            </h3>
-                            <span class="post">Bottle 2: Long term saving - LTS
-                            </span>
-                            <span class="post_percent">(10% INCOME)</span>
+                            <input class="title-money enter-money" type="text" name="add_LTS" data-type="currency"
+                                placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-add-money">
+                                    <%=ShowAddMoney.LTS%>
+                                </span>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="edit-6-jar">
+                        <div class="our-team">
                             <h3 class="title">Education</h3>
                             <div class="pic">
                                 <img src="/img/6-Bottle/EDU.jpg">
                             </div>
-                            <h3 class="title-money">
-                                <%=listSavingBook.decEDU%>
-                            </h3>
-                            <span class="post">Bottle 3: Education - EDU
-                            </span>
-                            <span class="post_percent">(10% INCOME)</span>
+                            <input class="title-money enter-money" type="text" name="add_EDU" data-type="currency"
+                                placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-add-money">
+                                    <%=ShowAddMoney.EDU%>
+                                </span>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="edit-6-jar">
+                        <div class="our-team">
                             <h3 class="title">Play</h3>
                             <div class="pic">
                                 <img src="/img/6-Bottle/PLAY.jpg">
                             </div>
-                            <h3 class="title-money">
-                                <%=listSavingBook.decPLAY%>
-                            </h3>
-                            <span class="post">Bottle 4: PLAY</span>
-                            <span class="post_percent">(10% INCOME)</span>
+                            <input class="title-money enter-money" type="text" name="add_PLAY" data-type="currency"
+                                placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-add-money">
+                                    <%=ShowAddMoney.PLAY%>
+                                </span>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="edit-6-jar">
+                        <div class="our-team">
                             <h3 class="title">Financial Freedom</h3>
                             <div class="pic">
                                 <img src="/img/6-Bottle/FFA.jpg">
                             </div>
-                            <h3 class="title-money">
-                                <%=listSavingBook.decFFA%>
-                            </h3>
-                            <span class="post">Bottle 5: Financial Freedom - FFA
-                            </span>
-                            <span class="post_percent">(10% INCOME)</span>
+                            <input class="title-money enter-money" type="text" name="add_FFA" data-type="currency"
+                                placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-add-money">
+                                    <%=ShowAddMoney.FFA%>
+                                </span>
+                                <% } %>
                         </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
-                        <div class="edit-6-jar">
+                        <div class="our-team">
                             <h3 class="title">GIVE</h3>
                             <div class="pic">
                                 <img src="/img/6-Bottle/GIVE.jpg">
                             </div>
-                            <h3 class="title-money">
-                                <%=listSavingBook.decGIVE%>
-                            </h3>
-                            <span class="post">Bottle 6: GIVE
-                            </span>
-                            <span class="post_percent">(5% INCOME)</span>
+                            <input class="title-money enter-money" type="text" name="add_GIVE" data-type="currency"
+                                placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-add-money">
+                                    <%=ShowAddMoney.GIVE%>
+                                </span>
+                                <% } %>
                         </div>
                     </div>
+                    <input type="text" name="userID" value="<%=getUser.id%>" hidden>
+                    <button type="submit" class="btnAddConfirm">Save Change</button>
                 </div>
             </section>
-            <!-- partial -->
-        </div>
+        </form>
 </body>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/currency.js"></script>

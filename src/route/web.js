@@ -88,7 +88,7 @@ const initWebRoute = (app) => {
 
   //Edit 6 Jar
   router.get(
-    "/add-any-1-in-6-jar",
+    "/add-money",
     (req, res, next) => {
       //Cookies that have not been signed
       if (req.cookies.tokenSVB != null) {
@@ -98,6 +98,18 @@ const initWebRoute = (app) => {
       }
     },
     savingbookController.getAddAny1In6Jar
+  );
+  router.post(
+    "/add-money",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.postAddAny1In6Jar
   );
 
   return app.use("/", router);

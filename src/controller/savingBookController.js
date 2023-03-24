@@ -25,9 +25,37 @@ let getHomePage = async (req, res) => {
     if (checkSV.length == 1) {
       try {
         let [listSavingBook] = await pool.execute(
-          "select totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE from saving_money where userID = ? LIMIT 1",
+          "select SUM(totalMoney) as totalMoney,SUM(decNEC) as decNEC,SUM(decLTS) as decLTS,SUM(decEDU) as decEDU,SUM(decPLAY) as decPLAY,SUM(decFFA) as decFFA,SUM(decGIVE) as decGIVE from saving_money where userID = ? LIMIT 1",
           [globalUser.id]
         );
+
+        // string glb listSavingBook
+        listSavingBook[0].totalMoneyStr = FormatterCurrency(
+          listSavingBook[0].totalMoney
+        );
+        listSavingBook[0].decNECStr = FormatterCurrency(
+          listSavingBook[0].decNEC
+        );
+        listSavingBook[0].decPLAYStr = FormatterCurrency(
+          listSavingBook[0].decPLAY
+        );
+
+        // int glb listSavingBook
+        listSavingBook[0].intTotal = parseInt(listSavingBook[0].totalMoney);
+
+        listSavingBook[0].intNEC = parseInt(listSavingBook[0].decNEC);
+
+        listSavingBook[0].intLTS = parseInt(listSavingBook[0].decLTS);
+
+        listSavingBook[0].intEDU = parseInt(listSavingBook[0].decEDU);
+
+        listSavingBook[0].intPLAY = parseInt(listSavingBook[0].decPLAY);
+
+        listSavingBook[0].intFFA = parseInt(listSavingBook[0].decFFA);
+
+        listSavingBook[0].intGIVE = parseInt(listSavingBook[0].decGIVE);
+
+        // FormatterCurrency glb listSavingBook
         listSavingBook[0].totalMoneyStr = FormatterCurrency(
           listSavingBook[0].totalMoney
         );
@@ -72,7 +100,7 @@ let getHomePage = async (req, res) => {
       } catch (error) {
         req.flash("danger", error);
         return res.render("login.ejs", {
-          message: req.flash("status"),
+          message: req.flash("danger"),
           status: "danger",
         });
       }
@@ -86,7 +114,7 @@ let getHomePage = async (req, res) => {
   } catch (error) {
     req.flash("danger", error);
     return res.render("login.ejs", {
-      message: req.flash("status"),
+      message: req.flash("danger"),
       status: "danger",
     });
   }
@@ -118,7 +146,7 @@ let postCreateNewSavingBook = async (req, res) => {
   } catch (error) {
     req.flash("danger", error);
     return res.render("login.ejs", {
-      message: req.flash("status"),
+      message: req.flash("danger"),
       status: "danger",
     });
   }
@@ -166,20 +194,107 @@ let getRulePage = (req, res) => {
   });
 };
 //6 Jar
+// Dấu phải = Comma
+let convertInt32Comma = (money) => {
+  return money.length > 0
+    ? parseInt(money.split("VND")[0].replaceAll(",", ""))
+    : 0;
+};
+let convertInt32Dot = (money) => {
+  return money.length > 0
+    ? parseInt(money.split("VND")[0].replaceAll(".", ""))
+    : 0;
+};
 let getAddAny1In6Jar = (req, res) => {
   return res.render("Add-Any-1-In-6-Jar.ejs", {
+    message: req.flash("status"),
+    status: "success",
     listSavingBook: glbListSavingBook,
     getUser: glbUser,
     instagramName: instagramName,
     facebookID: facebookID,
     projectGithub: projectGithub,
     youtubeChannel: youtubeChannel,
+    IsShowAddMoney: false,
+    ShowAddMoney: "",
     active: "add-money",
   });
 };
+
+let postAddAny1In6Jar = async (req, res) => {
+  try {
+    let { add_NEC, add_LTS, add_EDU, add_PLAY, add_FFA, add_GIVE, userID } =
+      req.body;
+
+    let showAdd = [];
+    showAdd.NEC = add_NEC.length > 0 ? "+ " + add_NEC : "+ 0";
+    showAdd.LTS = add_LTS.length > 0 ? "+ " + add_LTS : "+ 0";
+    showAdd.EDU = add_EDU.length > 0 ? "+ " + add_EDU : "+ 0";
+    showAdd.PLAY = add_PLAY.length > 0 ? "+ " + add_PLAY : "+ 0";
+    showAdd.FFA = add_FFA.length > 0 ? "+ " + add_FFA : "+ 0";
+    showAdd.GIVE = add_GIVE.length > 0 ? "+ " + add_GIVE : "+ 0";
+
+    let intAdd = [];
+    intAdd.NEC = convertInt32Comma(add_NEC);
+    intAdd.LTS = convertInt32Comma(add_LTS);
+    intAdd.EDU = convertInt32Comma(add_EDU);
+    intAdd.PLAY = convertInt32Comma(add_PLAY);
+    intAdd.FFA = convertInt32Comma(add_FFA);
+    intAdd.GIVE = convertInt32Comma(add_GIVE);
+
+    //sum Total
+    let sumTotal =
+      intAdd.NEC +
+      intAdd.LTS +
+      intAdd.EDU +
+      intAdd.PLAY +
+      intAdd.FFA +
+      intAdd.GIVE;
+
+    let createDate = new Date(Date.now());
+
+    await pool.execute(
+      "insert into saving_money(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,userID,createDate) values(?,?,?,?,?,?,?,?,?)",
+      [
+        sumTotal,
+        intAdd.NEC,
+        intAdd.LTS,
+        intAdd.EDU,
+        intAdd.PLAY,
+        intAdd.FFA,
+        intAdd.GIVE,
+        userID,
+        createDate,
+      ]
+    );
+
+    req.flash("success", "Update Success");
+    return res.render("Add-Any-1-In-6-Jar.ejs", {
+      message: req.flash("success"),
+      status: "success",
+      listSavingBook: glbListSavingBook,
+      getUser: glbUser,
+      instagramName: instagramName,
+      facebookID: facebookID,
+      projectGithub: projectGithub,
+      youtubeChannel: youtubeChannel,
+      IsShowAddMoney: true,
+      ShowAddMoney: showAdd,
+      active: "add-money",
+    });
+  } catch (error) {
+    req.flash("danger", error);
+    return res.render("login.ejs", {
+      message: req.flash("danger"),
+      status: "danger",
+    });
+  }
+};
+
 module.exports = {
   getHomePage,
   postCreateNewSavingBook,
   getRulePage,
   getAddAny1In6Jar,
+  postAddAny1In6Jar,
 };

@@ -343,3 +343,52 @@ main .post-content .post-meta {
 aside .side-inner .nav-menu ul li.active .form_nav {
   color: #000000;
 }
+.alert {
+  font-size: 18px;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+}
+.row-add-money {
+  padding: 10%;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+.enter-money {
+  width: 100%;
+  text-align: center;
+  border: none;
+}
+.row-add-money button {
+  background-color: #60c5a8;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.row-add-money button:hover {
+  background-color: #0d9b73;
+  opacity: 0.8;
+}
+.row-add-money .btnAddConfirm {
+  font-family: "ShopeeDisplay-Black";
+  font-size: 25px;
+  width: 30%;
+  border: 0.2rem solid #a4d4c7;
+  margin-left: 35%;
+}
+.row-add-money .our-team .pic {
+  width: 45%;
+}
+.row-add-money .post-add-money {
+  font-family: "ShopeeDisplay-Medium";
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0d9b73;
+  margin: 0 0 7px 0;
+  text-transform: uppercase;
+  font-size: 25px;
+}
