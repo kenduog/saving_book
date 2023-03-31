@@ -10,11 +10,11 @@
             <div class="profile">
                 <img src="/img/none_avt.png" alt="Image" class="img-fluid">
                 <h3 class="name">
-                    <%=getUser.firstName%>
-                        <%=getUser.lastName%>
+                    <%=generalInfo.glbUser.firstName%>
+                        <%=generalInfo.glbUser.lastName%>
                 </h3>
                 <span class="country">
-                    <%=getUser.email%>
+                    <%=generalInfo.glbUser.email%>
                 </span>
             </div>
 
@@ -22,19 +22,19 @@
                 <!-- <div class="row justify-content-center"> -->
                 <div class="col">
                     <strong class="number">
-                        <%=listSavingBook.totalMoneyStr%>
+                        <%=generalInfo.glbListSavingBook.totalMoneyStr%>
                     </strong>
                     <span class="number-label">Total</span>
                 </div>
                 <div class="col">
                     <strong class="number">
-                        <%=listSavingBook.decNECStr%>
+                        <%=generalInfo.glbListSavingBook.decNECStr%>
                     </strong>
                     <span class="number-label">Need</span>
                 </div>
                 <div class="col">
                     <strong class="number">
-                        <%=listSavingBook.decPLAYStr%>
+                        <%=generalInfo.glbListSavingBook.decPLAYStr%>
                     </strong>
                     <span class="number-label">Play</span>
                 </div>
@@ -50,7 +50,7 @@
             <li><a href="#">Balance:<a></li>
             <li>
                 <a href="#">
-                    <%=listSavingBook.totalMoney%>
+                    <%=generalInfo.glbListSavingBook.totalMoney%>
                 </a>
             </li>
         </ul>

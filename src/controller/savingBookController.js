@@ -1,12 +1,13 @@
 import pool from "../configs/connectDB";
 import jwt from "jsonwebtoken";
 require("dotenv").config();
-const instagramName = process.env.YOUR_INSTAGRAM_NAME;
-const facebookID = process.env.YOUR_FACEBOOK_ID;
-const projectGithub = process.env.YOUR_PROJECT_GITHUB;
-const youtubeChannel = process.env.YOUR_YOUTUBE_CHANNEL;
-var glbUser = [];
-var glbListSavingBook = [];
+var generalInfo = [];
+generalInfo.instagramName = process.env.YOUR_INSTAGRAM_NAME;
+generalInfo.facebookID = process.env.YOUR_FACEBOOK_ID;
+generalInfo.projectGithub = process.env.YOUR_PROJECT_GITHUB;
+generalInfo.youtubeChannel = process.env.YOUR_YOUTUBE_CHANNEL;
+generalInfo.glbUser = [];
+generalInfo.glbListSavingBook = [];
 
 let getHomePage = async (req, res) => {
   try {
@@ -21,18 +22,13 @@ let getHomePage = async (req, res) => {
       [globalUser.id]
     );
     // add global user
-    glbUser = getUser[0];
+    generalInfo.glbUser = getUser[0];
     if (checkSV.length == 1) {
       try {
         // add global List Saving Book
-        glbListSavingBook = await getListSavingBook(glbUser.id);
+        generalInfo.glbListSavingBook = await getListSavingBook(globalUser.id);
         return res.render("index.ejs", {
-          listSavingBook: glbListSavingBook,
-          getUser: getUser[0],
-          instagramName: instagramName,
-          facebookID: facebookID,
-          projectGithub: projectGithub,
-          youtubeChannel: youtubeChannel,
+          generalInfo: generalInfo,
           active: "/",
         });
       } catch (error) {
@@ -128,12 +124,7 @@ let FormatterCurrency = (num) => {
 
 let getRulePage = (req, res) => {
   return res.render("rule.ejs", {
-    listSavingBook: glbListSavingBook,
-    getUser: glbUser,
-    instagramName: instagramName,
-    facebookID: facebookID,
-    projectGithub: projectGithub,
-    youtubeChannel: youtubeChannel,
+    generalInfo: generalInfo,
     active: "rule",
   });
 };
@@ -153,12 +144,7 @@ let getAddAny1In6Jar = (req, res) => {
   return res.render("Add-Any-1-In-6-Jar.ejs", {
     message: req.flash("status"),
     status: "success",
-    listSavingBook: glbListSavingBook,
-    getUser: glbUser,
-    instagramName: instagramName,
-    facebookID: facebookID,
-    projectGithub: projectGithub,
-    youtubeChannel: youtubeChannel,
+    generalInfo: generalInfo,
     IsShowAddMoney: false,
     ShowAddMoney: "",
     active: "add-money",
@@ -236,16 +222,12 @@ let postAddAny1In6Jar = async (req, res) => {
         userID,
       ]
     );
+    generalInfo.glbListSavingBook = await getListSavingBook(userID);
     req.flash("success", "Update Success");
     return res.render("Add-Any-1-In-6-Jar.ejs", {
       message: req.flash("success"),
       status: "success",
-      listSavingBook: await getListSavingBook(userID),
-      getUser: glbUser,
-      instagramName: instagramName,
-      facebookID: facebookID,
-      projectGithub: projectGithub,
-      youtubeChannel: youtubeChannel,
+      generalInfo: generalInfo,
       IsShowAddMoney: true,
       ShowAddMoney: showAdd,
       active: "add-money",
