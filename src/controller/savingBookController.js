@@ -24,72 +24,10 @@ let getHomePage = async (req, res) => {
     glbUser = getUser[0];
     if (checkSV.length == 1) {
       try {
-        let [listSavingBook] = await pool.execute(
-          "select SUM(totalMoney) as totalMoney,SUM(decNEC) as decNEC,SUM(decLTS) as decLTS,SUM(decEDU) as decEDU,SUM(decPLAY) as decPLAY,SUM(decFFA) as decFFA,SUM(decGIVE) as decGIVE from saving_money where userID = ? LIMIT 1",
-          [globalUser.id]
-        );
-
-        // string glb listSavingBook
-        listSavingBook[0].totalMoneyStr = FormatterCurrency(
-          listSavingBook[0].totalMoney
-        );
-        listSavingBook[0].decNECStr = FormatterCurrency(
-          listSavingBook[0].decNEC
-        );
-        listSavingBook[0].decPLAYStr = FormatterCurrency(
-          listSavingBook[0].decPLAY
-        );
-
-        // int glb listSavingBook
-        listSavingBook[0].intTotal = parseInt(listSavingBook[0].totalMoney);
-
-        listSavingBook[0].intNEC = parseInt(listSavingBook[0].decNEC);
-
-        listSavingBook[0].intLTS = parseInt(listSavingBook[0].decLTS);
-
-        listSavingBook[0].intEDU = parseInt(listSavingBook[0].decEDU);
-
-        listSavingBook[0].intPLAY = parseInt(listSavingBook[0].decPLAY);
-
-        listSavingBook[0].intFFA = parseInt(listSavingBook[0].decFFA);
-
-        listSavingBook[0].intGIVE = parseInt(listSavingBook[0].decGIVE);
-
-        // FormatterCurrency glb listSavingBook
-        listSavingBook[0].totalMoneyStr = FormatterCurrency(
-          listSavingBook[0].totalMoney
-        );
-        listSavingBook[0].decNECStr = FormatterCurrency(
-          listSavingBook[0].decNEC
-        );
-        listSavingBook[0].decPLAYStr = FormatterCurrency(
-          listSavingBook[0].decPLAY
-        );
-        listSavingBook[0].totalMoney = currencyFormattingVND(
-          listSavingBook[0].totalMoney
-        );
-        listSavingBook[0].decNEC = currencyFormattingVND(
-          listSavingBook[0].decNEC
-        );
-        listSavingBook[0].decLTS = currencyFormattingVND(
-          listSavingBook[0].decLTS
-        );
-        listSavingBook[0].decEDU = currencyFormattingVND(
-          listSavingBook[0].decEDU
-        );
-        listSavingBook[0].decPLAY = currencyFormattingVND(
-          listSavingBook[0].decPLAY
-        );
-        listSavingBook[0].decFFA = currencyFormattingVND(
-          listSavingBook[0].decFFA
-        );
-        listSavingBook[0].decGIVE = currencyFormattingVND(
-          listSavingBook[0].decGIVE
-        );
         // add global List Saving Book
-        glbListSavingBook = listSavingBook[0];
+        glbListSavingBook = await getListSavingBook(glbUser.id);
         return res.render("index.ejs", {
-          listSavingBook: listSavingBook[0],
+          listSavingBook: glbListSavingBook,
           getUser: getUser[0],
           instagramName: instagramName,
           facebookID: facebookID,
@@ -138,8 +76,14 @@ let postCreateNewSavingBook = async (req, res) => {
     ffa = (svMoney * 10) / 100;
     give = svMoney - (nec + lts + edu + play + ffa);
 
+    //create in saving_money
     await pool.execute(
       "insert into saving_money(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,userID,createDate) values(?,?,?,?,?,?,?,?,?)",
+      [svMoney, nec, lts, edu, play, ffa, give, userID, createDate]
+    );
+    //create in saving_money_history
+    await pool.execute(
+      "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,userID,createDate) values(?,?,?,?,?,?,?,?,?)",
       [svMoney, nec, lts, edu, play, ffa, give, userID, createDate]
     );
     return res.redirect("/");
@@ -241,7 +185,6 @@ let postAddAny1In6Jar = async (req, res) => {
     intAdd.PLAY = convertInt32Comma(add_PLAY);
     intAdd.FFA = convertInt32Comma(add_FFA);
     intAdd.GIVE = convertInt32Comma(add_GIVE);
-
     //sum Total
     let sumTotal =
       intAdd.NEC +
@@ -251,10 +194,10 @@ let postAddAny1In6Jar = async (req, res) => {
       intAdd.FFA +
       intAdd.GIVE;
 
+    //Create saving_money_history
     let createDate = new Date(Date.now());
-
     await pool.execute(
-      "insert into saving_money(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,userID,createDate) values(?,?,?,?,?,?,?,?,?)",
+      "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,userID,createDate) values(?,?,?,?,?,?,?,?,?)",
       [
         sumTotal,
         intAdd.NEC,
@@ -268,11 +211,36 @@ let postAddAny1In6Jar = async (req, res) => {
       ]
     );
 
+    // GET DB SAVING BOOK
+    let listSavingBook = await getListSavingBook(userID);
+
+    // Add money
+    let sum = [];
+    sum.NEC = intAdd.NEC + listSavingBook.intNEC;
+    sum.LTS = intAdd.LTS + listSavingBook.intLTS;
+    sum.EDU = intAdd.EDU + listSavingBook.intEDU;
+    sum.PLAY = intAdd.PLAY + listSavingBook.intPLAY;
+    sum.FFA = intAdd.FFA + listSavingBook.intFFA;
+    sum.GIVE = intAdd.GIVE + listSavingBook.intGIVE;
+    sum.totalMoney = sumTotal + listSavingBook.intTotal;
+    await pool.execute(
+      "UPDATE saving_money SET totalMoney = ?,decNEC = ?,decLTS = ?,decEDU = ?,decPLAY = ?,decFFA = ?,decGIVE = ? WHERE userID = ?",
+      [
+        sum.totalMoney,
+        sum.NEC,
+        sum.LTS,
+        sum.EDU,
+        sum.PLAY,
+        sum.FFA,
+        sum.GIVE,
+        userID,
+      ]
+    );
     req.flash("success", "Update Success");
     return res.render("Add-Any-1-In-6-Jar.ejs", {
       message: req.flash("success"),
       status: "success",
-      listSavingBook: glbListSavingBook,
+      listSavingBook: await getListSavingBook(userID),
       getUser: glbUser,
       instagramName: instagramName,
       facebookID: facebookID,
@@ -289,6 +257,52 @@ let postAddAny1In6Jar = async (req, res) => {
       status: "danger",
     });
   }
+};
+let getListSavingBook = async (userID) => {
+  let [listSavingBook] = await pool.execute(
+    "select totalMoney ,decNEC, decLTS,decEDU, decPLAY, decFFA, decGIVE from saving_money where userID = ? LIMIT 1",
+    [userID]
+  );
+
+  // string glb listSavingBook
+  listSavingBook[0].totalMoneyStr = FormatterCurrency(
+    listSavingBook[0].totalMoney
+  );
+  listSavingBook[0].decNECStr = FormatterCurrency(listSavingBook[0].decNEC);
+  listSavingBook[0].decPLAYStr = FormatterCurrency(listSavingBook[0].decPLAY);
+
+  // int glb listSavingBook
+  listSavingBook[0].intTotal = parseInt(listSavingBook[0].totalMoney);
+
+  listSavingBook[0].intNEC = parseInt(listSavingBook[0].decNEC);
+
+  listSavingBook[0].intLTS = parseInt(listSavingBook[0].decLTS);
+
+  listSavingBook[0].intEDU = parseInt(listSavingBook[0].decEDU);
+
+  listSavingBook[0].intPLAY = parseInt(listSavingBook[0].decPLAY);
+
+  listSavingBook[0].intFFA = parseInt(listSavingBook[0].decFFA);
+
+  listSavingBook[0].intGIVE = parseInt(listSavingBook[0].decGIVE);
+
+  // FormatterCurrency glb listSavingBook
+  listSavingBook[0].totalMoneyStr = FormatterCurrency(
+    listSavingBook[0].totalMoney
+  );
+  listSavingBook[0].decNECStr = FormatterCurrency(listSavingBook[0].decNEC);
+  listSavingBook[0].decPLAYStr = FormatterCurrency(listSavingBook[0].decPLAY);
+  listSavingBook[0].totalMoney = currencyFormattingVND(
+    listSavingBook[0].totalMoney
+  );
+  listSavingBook[0].decNEC = currencyFormattingVND(listSavingBook[0].decNEC);
+  listSavingBook[0].decLTS = currencyFormattingVND(listSavingBook[0].decLTS);
+  listSavingBook[0].decEDU = currencyFormattingVND(listSavingBook[0].decEDU);
+  listSavingBook[0].decPLAY = currencyFormattingVND(listSavingBook[0].decPLAY);
+  listSavingBook[0].decFFA = currencyFormattingVND(listSavingBook[0].decFFA);
+  listSavingBook[0].decGIVE = currencyFormattingVND(listSavingBook[0].decGIVE);
+  // add global List Saving Book
+  return listSavingBook[0];
 };
 
 module.exports = {

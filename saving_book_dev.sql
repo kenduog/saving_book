@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 10:20 AM
+-- Generation Time: Mar 31, 2023 at 04:35 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -40,12 +40,24 @@ CREATE TABLE `saving_money` (
   `createDate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `saving_money`
+-- Table structure for table `saving_money_history`
 --
 
-INSERT INTO `saving_money` (`id`, `totalMoney`, `decNEC`, `decLTS`, `decEDU`, `decPLAY`, `decFFA`, `decGIVE`, `userID`, `createDate`) VALUES
-(1, '7000000.00', '3850000.00', '700000.00', '700000.00', '700000.00', '700000.00', '350000.00', 1, '2023-03-07');
+CREATE TABLE `saving_money_history` (
+  `id` int(11) NOT NULL,
+  `totalMoney` decimal(15,2) DEFAULT NULL,
+  `decNEC` decimal(15,2) DEFAULT NULL,
+  `decLTS` decimal(15,2) DEFAULT NULL,
+  `decEDU` decimal(15,2) DEFAULT NULL,
+  `decPLAY` decimal(15,2) DEFAULT NULL,
+  `decFFA` decimal(15,2) DEFAULT NULL,
+  `decGIVE` decimal(15,2) DEFAULT NULL,
+  `userID` int(11) NOT NULL,
+  `createDate` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -66,13 +78,6 @@ CREATE TABLE `user_account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user_account`
---
-
-INSERT INTO `user_account` (`id`, `phoneNumber`, `password`, `firstName`, `lastName`, `BOD`, `email`, `image`, `status`) VALUES
-(1, '0853081205', 'Um9vbmV5MTBA', 'Dương', 'Trọng Nhân', '2001-03-08', 'kenduongi.v.v.v.i@gmail.com', NULL, 1);
-
---
 -- Indexes for dumped tables
 --
 
@@ -80,6 +85,12 @@ INSERT INTO `user_account` (`id`, `phoneNumber`, `password`, `firstName`, `lastN
 -- Indexes for table `saving_money`
 --
 ALTER TABLE `saving_money`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `saving_money_history`
+--
+ALTER TABLE `saving_money_history`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -96,13 +107,19 @@ ALTER TABLE `user_account`
 -- AUTO_INCREMENT for table `saving_money`
 --
 ALTER TABLE `saving_money`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `saving_money_history`
+--
+ALTER TABLE `saving_money_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_account`
 --
 ALTER TABLE `user_account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
