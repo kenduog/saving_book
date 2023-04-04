@@ -71,17 +71,18 @@ let postCreateNewSavingBook = async (req, res) => {
     play = (svMoney * 10) / 100;
     ffa = (svMoney * 10) / 100;
     give = svMoney - (nec + lts + edu + play + ffa);
-
     //create in saving_money
     await pool.execute(
       "insert into saving_money(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,userID,createDate) values(?,?,?,?,?,?,?,?,?)",
       [svMoney, nec, lts, edu, play, ffa, give, userID, createDate]
     );
-    //create in saving_money_history
-    await pool.execute(
-      "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
-      [svMoney, nec, lts, edu, play, ffa, give, "income", userID, createDate]
-    );
+    if (svMoney > 0) {
+      //create in saving_money_history
+      await pool.execute(
+        "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
+        [svMoney, nec, lts, edu, play, ffa, give, "income", userID, createDate]
+      );
+    }
     return res.redirect("/");
   } catch (error) {
     req.flash("danger", error);
@@ -180,59 +181,72 @@ let postAddAny1In6Jar = async (req, res) => {
       intAdd.FFA +
       intAdd.GIVE;
 
-    //Create saving_money_history
-    let createDate = new Date(Date.now());
-    await pool.execute(
-      "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
-      [
-        sumTotal,
-        intAdd.NEC,
-        intAdd.LTS,
-        intAdd.EDU,
-        intAdd.PLAY,
-        intAdd.FFA,
-        intAdd.GIVE,
-        "income",
-        userID,
-        createDate,
-      ]
-    );
+    if (sumTotal > 0) {
+      //Create saving_money_history
+      let createDate = new Date(Date.now());
+      await pool.execute(
+        "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
+        [
+          sumTotal,
+          intAdd.NEC,
+          intAdd.LTS,
+          intAdd.EDU,
+          intAdd.PLAY,
+          intAdd.FFA,
+          intAdd.GIVE,
+          "income",
+          userID,
+          createDate,
+        ]
+      );
 
-    // GET DB SAVING BOOK
-    let listSavingBook = await getListSavingBook(userID);
+      // GET DB SAVING BOOK
+      let listSavingBook = await getListSavingBook(userID);
 
-    // Add money
-    let sum = [];
-    sum.NEC = intAdd.NEC + listSavingBook.intNEC;
-    sum.LTS = intAdd.LTS + listSavingBook.intLTS;
-    sum.EDU = intAdd.EDU + listSavingBook.intEDU;
-    sum.PLAY = intAdd.PLAY + listSavingBook.intPLAY;
-    sum.FFA = intAdd.FFA + listSavingBook.intFFA;
-    sum.GIVE = intAdd.GIVE + listSavingBook.intGIVE;
-    sum.totalMoney = sumTotal + listSavingBook.intTotal;
-    await pool.execute(
-      "UPDATE saving_money SET totalMoney = ?,decNEC = ?,decLTS = ?,decEDU = ?,decPLAY = ?,decFFA = ?,decGIVE = ? WHERE userID = ?",
-      [
-        sum.totalMoney,
-        sum.NEC,
-        sum.LTS,
-        sum.EDU,
-        sum.PLAY,
-        sum.FFA,
-        sum.GIVE,
-        userID,
-      ]
-    );
-    generalInfo.glbListSavingBook = await getListSavingBook(userID);
-    req.flash("success", "Update Success");
-    return res.render("add-any-1-in-6-jar", {
-      message: req.flash("success"),
-      status: "success",
-      generalInfo: generalInfo,
-      IsShowAddMoney: true,
-      ShowAddMoney: showAdd,
-      active: "add-money",
-    });
+      // Add money
+      let sum = [];
+      sum.NEC = intAdd.NEC + listSavingBook.intNEC;
+      sum.LTS = intAdd.LTS + listSavingBook.intLTS;
+      sum.EDU = intAdd.EDU + listSavingBook.intEDU;
+      sum.PLAY = intAdd.PLAY + listSavingBook.intPLAY;
+      sum.FFA = intAdd.FFA + listSavingBook.intFFA;
+      sum.GIVE = intAdd.GIVE + listSavingBook.intGIVE;
+      sum.totalMoney = sumTotal + listSavingBook.intTotal;
+      await pool.execute(
+        "UPDATE saving_money SET totalMoney = ?,decNEC = ?,decLTS = ?,decEDU = ?,decPLAY = ?,decFFA = ?,decGIVE = ? WHERE userID = ?",
+        [
+          sum.totalMoney,
+          sum.NEC,
+          sum.LTS,
+          sum.EDU,
+          sum.PLAY,
+          sum.FFA,
+          sum.GIVE,
+          userID,
+        ]
+      );
+      generalInfo.glbListSavingBook = await getListSavingBook(userID);
+      req.flash("success", "Update Success");
+      return res.render("add-any-1-in-6-jar", {
+        message: req.flash("success"),
+        status: "success",
+        generalInfo: generalInfo,
+        IsShowAddMoney: true,
+        ShowAddMoney: showAdd,
+        active: "add-money",
+      });
+    } else {
+      generalInfo.glbListSavingBook = await getListSavingBook(userID);
+      req.flash("warning", "Please input value");
+      return res.render("add-any-1-in-6-jar", {
+        message: req.flash("warning"),
+        status: "warning",
+        generalInfo: generalInfo,
+        IsShowAddMoney: false,
+        ShowAddMoney: "",
+        active: "add-money",
+      });
+    }
   } catch (error) {
     req.flash("danger", error);
     return res.render("login.ejs", {
@@ -287,9 +301,9 @@ let getListSavingBook = async (userID) => {
   // add global List Saving Book
   return listSavingBook[0];
 };
-let getHistory = async (req, res) => {
+let getHistoryPage = async (req, res) => {
   let [listSavingBookHistory] = await pool.execute(
-    "SELECT createDate,CAST(totalMoney AS int) as TOTAL, CAST(decNEC AS int) as NEC, CAST(decLTS AS int) as LTS, CAST(decEDU AS int) as EDU, CAST(decPLAY AS int) as PLAY, CAST(decFFA AS int) as FFA, CAST(decGIVE AS int) as GIVE,type as TYPE FROM `saving_money_history` WHERE userID = 1 ORDER BY createDate DESC;",
+    "SELECT createDate,CAST(totalMoney AS int) as TOTAL, CAST(decNEC AS int) as NEC, CAST(decLTS AS int) as LTS, CAST(decEDU AS int) as EDU, CAST(decPLAY AS int) as PLAY, CAST(decFFA AS int) as FFA, CAST(decGIVE AS int) as GIVE,type as TYPE FROM `saving_money_history` WHERE userID = ? ORDER BY createDate DESC;",
     [generalInfo.glbUser.id]
   );
   return res.render("history.ejs", {
@@ -301,11 +315,21 @@ let getHistory = async (req, res) => {
   });
 };
 
+let getPayPage = async (req, res) => {
+  return res.render("pay.ejs", {
+    message: req.flash("status"),
+    status: "success",
+    generalInfo: generalInfo,
+    active: "pay",
+  });
+};
+
 module.exports = {
   getHomePage,
   postCreateNewSavingBook,
   getRulePage,
   getAddAny1In6Jar,
   postAddAny1In6Jar,
-  getHistory,
+  getHistoryPage,
+  getPayPage,
 };

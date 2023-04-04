@@ -8,15 +8,6 @@
                 </form>
             </a>
         </li>
-        <li class="<%=active=='rule'?'active':''%>">
-            <a>
-                <form action="/rule" method="get">
-                    <span class="icon-book mr-3"></span>
-                    <button type="submit" class="form_nav">Guide
-                    </button>
-                </form>
-            </a>
-        </li>
         <li class="<%=active=='add-money'?'active':''%>">
             <a>
                 <form action="/add-money" method="get">
@@ -26,11 +17,29 @@
                 </form>
             </a>
         </li>
+        <li class="<%=active=='pay'?'active':''%>">
+            <a>
+                <form action="/pay" method="get">
+                    <span class="icon-payment mr-3"></span>
+                    <button type="submit" class="form_nav">Pay
+                    </button>
+                </form>
+            </a>
+        </li>
         <li class="<%=active=='history'?'active':''%>">
             <a>
                 <form action="/history" method="get">
                     <span class="icon-history mr-3"></span>
                     <button type="submit" class="form_nav">History
+                    </button>
+                </form>
+            </a>
+        </li>
+        <li class="<%=active=='rule'?'active':''%>">
+            <a>
+                <form action="/rule" method="get">
+                    <span class="icon-book mr-3"></span>
+                    <button type="submit" class="form_nav">About
                     </button>
                 </form>
             </a>

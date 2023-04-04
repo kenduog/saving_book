@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head.ejs') %>
+        <title>+ Money</title>
+</head>
+
+<body>
+    <%- include('partials/header.ejs') %>
+        <div class="title-body">
+            <h3>Pay</h3>
+        </div>
+        <form action="/add-money" method="post">
+            <div class="alert">
+                <%- include('partials/alert.ejs') %>
+            </div>
+            <h1>heloo this pay</h1>
+        </form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/currency.js"></script>
+<%- include('partials/footer.ejs') %>
+
+</html>

@@ -122,7 +122,21 @@ const initWebRoute = (app) => {
         res.redirect("/login");
       }
     },
-    savingbookController.getHistory
+    savingbookController.getHistoryPage
+  );
+
+  // pay
+  router.get(
+    "/pay",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.getPayPage
   );
 
   return app.use("/", router);
