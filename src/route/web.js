@@ -111,6 +111,19 @@ const initWebRoute = (app) => {
     },
     savingbookController.postAddAny1In6Jar
   );
+  // history
+  router.get(
+    "/history",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.getHistory
+  );
 
   return app.use("/", router);
 };

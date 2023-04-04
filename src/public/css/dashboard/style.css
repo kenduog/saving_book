@@ -393,3 +393,31 @@ aside .side-inner .nav-menu ul li.active .form_nav {
   text-transform: uppercase;
   font-size: 25px;
 }
+.table-history {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+}
+.table-history .table {
+  border: 1px solid #60c5a8;
+}
+.table-history .table .thead-dark th {
+  color: #fff;
+  background-color: #60c5a8;
+  border-color: #60c5a8;
+}
+.table-history .table tbody tr .stt {
+  color: #60c5a8;
+}
+.col-income-money {
+  font-family: "ShopeeDisplay-Light";
+  font-weight: bold;
+  color: #0d9b73;
+  font-size: large;
+}
+.col-pay-money {
+  font-family: "ShopeeDisplay-Light";
+  font-weight: bold;
+  color: #b50e0e;
+  font-size: large;
+}

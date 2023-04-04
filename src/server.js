@@ -7,6 +7,7 @@ import flash from "connect-flash";
 
 require("dotenv").config();
 const app = express();
+app.locals.moment = require("moment");
 //use cookie
 app.use(cookieParser());
 const port = process.env.PORT;

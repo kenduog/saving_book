@@ -20,8 +20,17 @@
         <li class="<%=active=='add-money'?'active':''%>">
             <a>
                 <form action="/add-money" method="get">
-                    <span class="icon-dollar mr-3"></span>
+                    <span class="icon-add mr-3"></span>
                     <button type="submit" class="form_nav">Add money
+                    </button>
+                </form>
+            </a>
+        </li>
+        <li class="<%=active=='history'?'active':''%>">
+            <a>
+                <form action="/history" method="get">
+                    <span class="icon-history mr-3"></span>
+                    <button type="submit" class="form_nav">History
                     </button>
                 </form>
             </a>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head.ejs') %>
+        <title>History</title>
+</head>
+
+<body>
+    <%- include('partials/header.ejs') %>
+        <div class="title-body">
+            <h3>History</h3>
+        </div>
+        <form action="/" method="post">
+            <% if(message.length> 0) { %>
+                <div class="alert">
+                    <%- include('partials/alert.ejs') %>
+                </div>
+                <% } %>
+                    <div class="table-history">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i=0;i< listSavingBookHistory.length; i++) { %>
+                                    <tr>
+                                        <th class="stt" scope="row">
+                                            <%= i+1 %>
+                                        </th>
+                                        <td>
+                                            <%= moment(listSavingBookHistory[i].createDate).format( 'DD/MM/YYYY' ) %>
+                                        </td>
+                                        <td>
+                                            <%= moment(listSavingBookHistory[i].createDate).format( 'HH:mm:ss' ) %>
+                                        </td>
+                                        <td class="col-<%=listSavingBookHistory[i].TYPE%>-money">
+                                            <%= listSavingBookHistory[i].TOTAL!=0 ? listSavingBookHistory[i].TOTAL> 0
+                                                ?'+'+listSavingBookHistory[i].TOTAL.toLocaleString("it-IT", {
+                                                style: "currency" , currency: "VND" , }) :
+                                                listSavingBookHistory[i].TOTAL.toLocaleString("it-IT", {
+                                                style: "currency" , currency: "VND" , }) : '' %>
+                                        </td>
+                                        <td>
+                                            <p><a class="button"
+                                                    onclick="detail(<%=JSON.stringify(listSavingBookHistory[i])%>)">Detail</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+        </form>
+        <div id="popup1" class="overlay">
+            <div class="popup detailHistory">
+                <div class="header">
+                    <h2> Detail </h2>
+                    <a class="close" href="#">&times;</a>
+                </div>
+                <div class="content">
+                    <section>
+                        <div class="row row-add-money">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="our-team">
+                                    <h3 class="title">Neccessities</h3>
+                                    <div class="pic">
+                                        <img src="/img/6-Bottle/NEC.jpg">
+                                    </div>
+                                    <input class="title-money enter-money" type="text" id="NEC" data-type="currency"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="our-team">
+                                    <h3 class="title">Long term saving</h3>
+                                    <div class="pic">
+                                        <img src="/img/6-Bottle/LTS.jpg">
+                                    </div>
+                                    <input class="title-money enter-money" type="text" id="LTS" data-type="currency"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="our-team">
+                                    <h3 class="title">Education</h3>
+                                    <div class="pic">
+                                        <img src="/img/6-Bottle/EDU.jpg">
+                                    </div>
+                                    <input class="title-money enter-money" type="text" id="EDU" data-type="currency"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="our-team">
+                                    <h3 class="title">Play</h3>
+                                    <div class="pic">
+                                        <img src="/img/6-Bottle/PLAY.jpg">
+                                    </div>
+                                    <input class="title-money enter-money" type="text" id="PLAY" data-type="currency"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="our-team">
+                                    <h3 class="title">Financial Freedom</h3>
+                                    <div class="pic">
+                                        <img src="/img/6-Bottle/FFA.jpg">
+                                    </div>
+                                    <input class="title-money enter-money" type="text" id="FFA" data-type="currency"
+                                        readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="our-team">
+                                    <h3 class="title">GIVE</h3>
+                                    <div class="pic">
+                                        <img src="/img/6-Bottle/GIVE.jpg">
+                                    </div>
+                                    <input class="title-money enter-money" type="text" id="GIVE" data-type="currency"
+                                        readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/currency.js"></script>
+<script src="/js/popupHistoryPage.js"></script>
+<%- include('./partials/footer.ejs') %>
+
+</html>
