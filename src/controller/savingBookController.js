@@ -114,7 +114,7 @@ let FormatterCurrency = (num) => {
       money = Math.sign(num) * (Math.abs(num) / 1000000).toFixed(2) + "M";
     } else {
       if (Math.abs(num) > 999) {
-        money = Math.sign(num) * (Math.abs(num) / 1000).toFixed(2) + "k";
+        money = Math.sign(num) * (Math.abs(num) / 1000).toFixed(2) + "K";
       } else {
         money = Math.sign(num) * Math.abs(num);
       }
@@ -123,8 +123,8 @@ let FormatterCurrency = (num) => {
   return money;
 };
 
-let getRulePage = (req, res) => {
-  return res.render("rule.ejs", {
+let getAboutPage = (req, res) => {
+  return res.render("about.ejs", {
     generalInfo: generalInfo,
     active: "rule",
   });
@@ -327,7 +327,7 @@ let getPayPage = async (req, res) => {
 module.exports = {
   getHomePage,
   postCreateNewSavingBook,
-  getRulePage,
+  getAboutPage,
   getAddAny1In6Jar,
   postAddAny1In6Jar,
   getHistoryPage,

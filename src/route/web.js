@@ -74,7 +74,7 @@ const initWebRoute = (app) => {
 
   //Rule
   router.get(
-    "/rule",
+    "/about",
     (req, res, next) => {
       //Cookies that have not been signed
       if (req.cookies.tokenSVB != null) {
@@ -83,7 +83,7 @@ const initWebRoute = (app) => {
         res.redirect("/login");
       }
     },
-    savingbookController.getRulePage
+    savingbookController.getAboutPage
   );
 
   //Edit 6 Jar

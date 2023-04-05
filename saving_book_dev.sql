@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2023 at 04:35 AM
+-- Generation Time: Apr 05, 2023 at 04:29 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -55,6 +55,7 @@ CREATE TABLE `saving_money_history` (
   `decPLAY` decimal(15,2) DEFAULT NULL,
   `decFFA` decimal(15,2) DEFAULT NULL,
   `decGIVE` decimal(15,2) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
   `userID` int(11) NOT NULL,
   `createDate` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -85,13 +86,15 @@ CREATE TABLE `user_account` (
 -- Indexes for table `saving_money`
 --
 ALTER TABLE `saving_money`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userID` (`userID`);
 
 --
 -- Indexes for table `saving_money_history`
 --
 ALTER TABLE `saving_money_history`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userID` (`userID`);
 
 --
 -- Indexes for table `user_account`
@@ -120,6 +123,22 @@ ALTER TABLE `saving_money_history`
 --
 ALTER TABLE `user_account`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `saving_money`
+--
+ALTER TABLE `saving_money`
+  ADD CONSTRAINT `saving_money_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user_account` (`id`),
+
+--
+-- Constraints for table `saving_money_history`
+--
+ALTER TABLE `saving_money_history`
+  ADD CONSTRAINT `saving_money_history_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user_account` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
