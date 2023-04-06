@@ -11,7 +11,20 @@ let currencyFormattingVND = (money) => {
     return "0 VND";
   }
 };
+let changeColor = (money, id) => {
+  if (money < 0) {
+    document.getElementById(id).style.color = "#b50e0e";
+  } else {
+    document.getElementById(id).style.color = "#0d9b73";
+  }
+};
 let detail = (data) => {
+  changeColor(data.NEC, "NEC");
+  changeColor(data.LTS, "LTS");
+  changeColor(data.EDU, "EDU");
+  changeColor(data.PLAY, "PLAY");
+  changeColor(data.FFA, "FFA");
+  changeColor(data.GIVE, "GIVE");
   document.getElementById("NEC").value = currencyFormattingVND(data.NEC);
   document.getElementById("LTS").value = currencyFormattingVND(data.LTS);
   document.getElementById("EDU").value = currencyFormattingVND(data.EDU);

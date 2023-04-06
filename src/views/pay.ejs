@@ -3,7 +3,7 @@
 
 <head>
     <%- include('partials/head.ejs') %>
-        <title>+ Money</title>
+        <title>Pay</title>
 </head>
 
 <body>
@@ -11,11 +11,107 @@
         <div class="title-body">
             <h3>Pay</h3>
         </div>
-        <form action="/add-money" method="post">
+        <form action="/pay" method="post">
             <div class="alert">
                 <%- include('partials/alert.ejs') %>
             </div>
-            <h1>heloo this pay</h1>
+            <section>
+                <div class="row row-add-money">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="our-team">
+                            <h3 class="title">Neccessities</h3>
+                            <div class="pic">
+                                <img src="/img/6-Bottle/NEC.jpg">
+                            </div>
+                            <input class="title-money enter-money minus-money" type="text" name="minus_NEC"
+                                data-type="currency" placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-minus-money">
+                                    <%=ShowAddMoney.NEC%>
+                                </span>
+                                <% } %>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="our-team">
+                            <h3 class="title">Long term saving</h3>
+                            <div class="pic">
+                                <img src="/img/6-Bottle/LTS.jpg">
+                            </div>
+                            <input class="title-money enter-money minus-money" type="text" name="minus_LTS"
+                                data-type="currency" placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-minus-money">
+                                    <%=ShowAddMoney.LTS%>
+                                </span>
+                                <% } %>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="our-team">
+                            <h3 class="title">Education</h3>
+                            <div class="pic">
+                                <img src="/img/6-Bottle/EDU.jpg">
+                            </div>
+                            <input class="title-money enter-money minus-money" type="text" name="minus_EDU"
+                                data-type="currency" placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-minus-money">
+                                    <%=ShowAddMoney.EDU%>
+                                </span>
+                                <% } %>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="our-team">
+                            <h3 class="title">Play</h3>
+                            <div class="pic">
+                                <img src="/img/6-Bottle/PLAY.jpg">
+                            </div>
+                            <input class="title-money enter-money minus-money" type="text" name="minus_PLAY"
+                                data-type="currency" placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-minus-money">
+                                    <%=ShowAddMoney.PLAY%>
+                                </span>
+                                <% } %>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="our-team">
+                            <h3 class="title">Financial Freedom</h3>
+                            <div class="pic">
+                                <img src="/img/6-Bottle/FFA.jpg">
+                            </div>
+                            <input class="title-money enter-money minus-money" type="text" name="minus_FFA"
+                                data-type="currency" placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-minus-money">
+                                    <%=ShowAddMoney.FFA%>
+                                </span>
+                                <% } %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="our-team">
+                            <h3 class="title">GIVE</h3>
+                            <div class="pic">
+                                <img src="/img/6-Bottle/GIVE.jpg">
+                            </div>
+                            <input class="title-money enter-money minus-money" type="text" name="minus_GIVE"
+                                data-type="currency" placeholder="Enter Money">
+                            <% if(IsShowAddMoney==true) { %>
+                                <span class="post-minus-money">
+                                    <%=ShowAddMoney.GIVE%>
+                                </span>
+                                <% } %>
+                        </div>
+                    </div>
+                    <input type="text" name="userID" value="<%=generalInfo.glbUser.id%>" hidden>
+                    <button type="submit" class="btnAddConfirm">Save Change</button>
+                </div>
+            </section>
         </form>
 </body>
 <script src="/js/jquery-3.3.1.min.js"></script>

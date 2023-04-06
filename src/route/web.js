@@ -138,6 +138,18 @@ const initWebRoute = (app) => {
     },
     savingbookController.getPayPage
   );
+  router.post(
+    "/pay",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.postPayPage
+  );
 
   return app.use("/", router);
 };

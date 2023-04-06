@@ -89,6 +89,10 @@
   color: #fff;
 }
 
+.our-team .detail {
+  font-size: 1rem;
+}
+
 .social li a:hover {
   background-color: #025784 !important;
   border: none;
@@ -314,4 +318,7 @@
 .edit-6-jar:hover .social li a {
   background: #60c5a8;
   color: #fff;
+}
+.our-team .minus-money {
+  color: #b50e0e;
 }

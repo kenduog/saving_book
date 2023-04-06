@@ -77,9 +77,9 @@ let postCreateNewSavingBook = async (req, res) => {
       [svMoney, nec, lts, edu, play, ffa, give, userID, createDate]
     );
     if (svMoney > 0) {
-      //create in saving_money_history
+      //create in income
       await pool.execute(
-        "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
+        "insert into income(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
         [svMoney, nec, lts, edu, play, ffa, give, "income", userID, createDate]
       );
     }
@@ -142,7 +142,7 @@ let convertInt32Dot = (money) => {
     : 0;
 };
 let getAddAny1In6Jar = (req, res) => {
-  return res.render("add-any-1-in-6-jar", {
+  return res.render("income", {
     message: req.flash("status"),
     status: "success",
     generalInfo: generalInfo,
@@ -182,10 +182,10 @@ let postAddAny1In6Jar = async (req, res) => {
       intAdd.GIVE;
 
     if (sumTotal > 0) {
-      //Create saving_money_history
+      //Create income
       let createDate = new Date(Date.now());
       await pool.execute(
-        "insert into saving_money_history(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
+        "insert into income(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
         [
           sumTotal,
           intAdd.NEC,
@@ -227,7 +227,7 @@ let postAddAny1In6Jar = async (req, res) => {
       );
       generalInfo.glbListSavingBook = await getListSavingBook(userID);
       req.flash("success", "Update Success");
-      return res.render("add-any-1-in-6-jar", {
+      return res.render("income", {
         message: req.flash("success"),
         status: "success",
         generalInfo: generalInfo,
@@ -238,7 +238,7 @@ let postAddAny1In6Jar = async (req, res) => {
     } else {
       generalInfo.glbListSavingBook = await getListSavingBook(userID);
       req.flash("warning", "Please input value");
-      return res.render("add-any-1-in-6-jar", {
+      return res.render("income", {
         message: req.flash("warning"),
         status: "warning",
         generalInfo: generalInfo,
@@ -303,8 +303,8 @@ let getListSavingBook = async (userID) => {
 };
 let getHistoryPage = async (req, res) => {
   let [listSavingBookHistory] = await pool.execute(
-    "SELECT createDate,CAST(totalMoney AS int) as TOTAL, CAST(decNEC AS int) as NEC, CAST(decLTS AS int) as LTS, CAST(decEDU AS int) as EDU, CAST(decPLAY AS int) as PLAY, CAST(decFFA AS int) as FFA, CAST(decGIVE AS int) as GIVE,type as TYPE FROM `saving_money_history` WHERE userID = ? ORDER BY createDate DESC;",
-    [generalInfo.glbUser.id]
+    "SELECT createDate,CAST(totalMoney AS int) as TOTAL, CAST(decNEC AS int) as NEC, CAST(decLTS AS int) as LTS, CAST(decEDU AS int) as EDU, CAST(decPLAY AS int) as PLAY, CAST(decFFA AS int) as FFA, CAST(decGIVE AS int) as GIVE,type as TYPE FROM `income` WHERE userID = ? UNION ALL SELECT createDate,CAST(totalMoney AS int) as TOTAL, CAST(decNEC AS int) as NEC, CAST(decLTS AS int) as LTS, CAST(decEDU AS int) as EDU, CAST(decPLAY AS int) as PLAY, CAST(decFFA AS int) as FFA, CAST(decGIVE AS int) as GIVE,type as TYPE FROM `pay` WHERE userID = ? ORDER BY createDate DESC",
+    [generalInfo.glbUser.id, generalInfo.glbUser.id]
   );
   return res.render("history.ejs", {
     message: req.flash("status"),
@@ -320,8 +320,121 @@ let getPayPage = async (req, res) => {
     message: req.flash("status"),
     status: "success",
     generalInfo: generalInfo,
+    IsShowAddMoney: false,
+    ShowAddMoney: "",
     active: "pay",
   });
+};
+
+let postPayPage = async (req, res) => {
+  try {
+    let {
+      minus_NEC,
+      minus_LTS,
+      minus_EDU,
+      minus_PLAY,
+      minus_FFA,
+      minus_GIVE,
+      userID,
+    } = req.body;
+
+    let showAdd = [];
+    showAdd.NEC = minus_NEC.length > 0 ? "- " + minus_NEC : "- 0";
+    showAdd.LTS = minus_LTS.length > 0 ? "- " + minus_LTS : "- 0";
+    showAdd.EDU = minus_EDU.length > 0 ? "- " + minus_EDU : "- 0";
+    showAdd.PLAY = minus_PLAY.length > 0 ? "- " + minus_PLAY : "- 0";
+    showAdd.FFA = minus_FFA.length > 0 ? "- " + minus_FFA : "- 0";
+    showAdd.GIVE = minus_GIVE.length > 0 ? "- " + minus_GIVE : "- 0";
+
+    let intAdd = [];
+    intAdd.NEC = -convertInt32Comma(minus_NEC);
+    intAdd.LTS = -convertInt32Comma(minus_LTS);
+    intAdd.EDU = -convertInt32Comma(minus_EDU);
+    intAdd.PLAY = -convertInt32Comma(minus_PLAY);
+    intAdd.FFA = -convertInt32Comma(minus_FFA);
+    intAdd.GIVE = -convertInt32Comma(minus_GIVE);
+    //sum Total
+    let sumTotal =
+      intAdd.NEC +
+      intAdd.LTS +
+      intAdd.EDU +
+      intAdd.PLAY +
+      intAdd.FFA +
+      intAdd.GIVE;
+
+    if (sumTotal != 0) {
+      //Create income
+      let createDate = new Date(Date.now());
+      await pool.execute(
+        "insert into pay(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
+        [
+          sumTotal,
+          intAdd.NEC,
+          intAdd.LTS,
+          intAdd.EDU,
+          intAdd.PLAY,
+          intAdd.FFA,
+          intAdd.GIVE,
+          "pay",
+          userID,
+          createDate,
+        ]
+      );
+
+      // GET DB SAVING BOOK
+      let listSavingBook = await getListSavingBook(userID);
+
+      // Add money
+      let sum = [];
+      sum.NEC = intAdd.NEC + listSavingBook.intNEC;
+      sum.LTS = intAdd.LTS + listSavingBook.intLTS;
+      sum.EDU = intAdd.EDU + listSavingBook.intEDU;
+      sum.PLAY = intAdd.PLAY + listSavingBook.intPLAY;
+      sum.FFA = intAdd.FFA + listSavingBook.intFFA;
+      sum.GIVE = intAdd.GIVE + listSavingBook.intGIVE;
+      sum.totalMoney = sumTotal + listSavingBook.intTotal;
+      await pool.execute(
+        "UPDATE saving_money SET totalMoney = ?,decNEC = ?,decLTS = ?,decEDU = ?,decPLAY = ?,decFFA = ?,decGIVE = ? WHERE userID = ?",
+        [
+          sum.totalMoney,
+          sum.NEC,
+          sum.LTS,
+          sum.EDU,
+          sum.PLAY,
+          sum.FFA,
+          sum.GIVE,
+          userID,
+        ]
+      );
+      generalInfo.glbListSavingBook = await getListSavingBook(userID);
+      req.flash("success", "Update Success");
+      return res.render("pay", {
+        message: req.flash("success"),
+        status: "success",
+        generalInfo: generalInfo,
+        IsShowAddMoney: true,
+        ShowAddMoney: showAdd,
+        active: "pay",
+      });
+    } else {
+      generalInfo.glbListSavingBook = await getListSavingBook(userID);
+      req.flash("warning", "Please input value");
+      return res.render("pay", {
+        message: req.flash("warning"),
+        status: "warning",
+        generalInfo: generalInfo,
+        IsShowAddMoney: false,
+        ShowAddMoney: "",
+        active: "pay",
+      });
+    }
+  } catch (error) {
+    req.flash("danger", error);
+    return res.render("login.ejs", {
+      message: req.flash("danger"),
+      status: "danger",
+    });
+  }
 };
 
 module.exports = {
@@ -332,4 +445,5 @@ module.exports = {
   postAddAny1In6Jar,
   getHistoryPage,
   getPayPage,
+  postPayPage,
 };

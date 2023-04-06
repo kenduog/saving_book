@@ -393,6 +393,16 @@ aside .side-inner .nav-menu ul li.active .form_nav {
   text-transform: uppercase;
   font-size: 25px;
 }
+.row-add-money .post-minus-money {
+  font-family: "ShopeeDisplay-Medium";
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #b50e0e;
+  margin: 0 0 7px 0;
+  text-transform: uppercase;
+  font-size: 25px;
+}
 .table-history {
   margin-left: 5%;
   margin-right: 5%;
