@@ -256,6 +256,10 @@ let postAddAny1In6Jar = async (req, res) => {
   }
 };
 let getListSavingBook = async (userID) => {
+  await pool.execute(
+    "update saving_money set totalMoney = (decNEC + decLTS + decEDU + decPLAY + decFFA + decGIVE)  where userID = ?",
+    [userID]
+  );
   let [listSavingBook] = await pool.execute(
     "select totalMoney ,decNEC, decLTS,decEDU, decPLAY, decFFA, decGIVE from saving_money where userID = ? LIMIT 1",
     [userID]
@@ -380,10 +384,8 @@ let postPayPage = async (req, res) => {
           createDate,
         ]
       );
-
       // GET DB SAVING BOOK
       let listSavingBook = await getListSavingBook(userID);
-
       // Add money
       let sum = [];
       sum.NEC = intAdd.NEC + listSavingBook.intNEC;
@@ -393,29 +395,49 @@ let postPayPage = async (req, res) => {
       sum.FFA = intAdd.FFA + listSavingBook.intFFA;
       sum.GIVE = intAdd.GIVE + listSavingBook.intGIVE;
       sum.totalMoney = sumTotal + listSavingBook.intTotal;
-      await pool.execute(
-        "UPDATE saving_money SET totalMoney = ?,decNEC = ?,decLTS = ?,decEDU = ?,decPLAY = ?,decFFA = ?,decGIVE = ? WHERE userID = ?",
-        [
-          sum.totalMoney,
-          sum.NEC,
-          sum.LTS,
-          sum.EDU,
-          sum.PLAY,
-          sum.FFA,
-          sum.GIVE,
-          userID,
-        ]
-      );
-      generalInfo.glbListSavingBook = await getListSavingBook(userID);
-      req.flash("success", "Update Success");
-      return res.render("pay", {
-        message: req.flash("success"),
-        status: "success",
-        generalInfo: generalInfo,
-        IsShowAddMoney: true,
-        ShowAddMoney: showAdd,
-        active: "pay",
-      });
+      if (
+        sum.NEC < 0 ||
+        sum.LTS < 0 ||
+        sum.EDU < 0 ||
+        sum.PLAY < 0 ||
+        sum.FFA < 0 ||
+        sum.GIVE < 0
+      ) {
+        generalInfo.glbListSavingBook = await getListSavingBook(userID);
+        req.flash("warning", "Money don't enough");
+        return res.render("pay", {
+          message: req.flash("warning"),
+          status: "warning",
+          generalInfo: generalInfo,
+          IsShowAddMoney: false,
+          ShowAddMoney: "",
+          active: "pay",
+        });
+      } else {
+        await pool.execute(
+          "UPDATE saving_money SET totalMoney = ?,decNEC = ?,decLTS = ?,decEDU = ?,decPLAY = ?,decFFA = ?,decGIVE = ? WHERE userID = ?",
+          [
+            sum.totalMoney,
+            sum.NEC,
+            sum.LTS,
+            sum.EDU,
+            sum.PLAY,
+            sum.FFA,
+            sum.GIVE,
+            userID,
+          ]
+        );
+        generalInfo.glbListSavingBook = await getListSavingBook(userID);
+        req.flash("success", "Update Success");
+        return res.render("pay", {
+          message: req.flash("success"),
+          status: "success",
+          generalInfo: generalInfo,
+          IsShowAddMoney: true,
+          ShowAddMoney: showAdd,
+          active: "pay",
+        });
+      }
     } else {
       generalInfo.glbListSavingBook = await getListSavingBook(userID);
       req.flash("warning", "Please input value");
