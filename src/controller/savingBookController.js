@@ -368,7 +368,7 @@ let postPayPage = async (req, res) => {
 
     if (sumTotal != 0) {
       //Create income
-      let createDate = new Date(Date.now());
+      let createDate = new Date();
       await pool.execute(
         "insert into pay(totalMoney,decNEC,decLTS,decEDU,decPLAY,decFFA,decGIVE,type,userID,createDate) values(?,?,?,?,?,?,?,?,?,?)",
         [
