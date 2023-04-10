@@ -406,7 +406,7 @@ aside .side-inner .nav-menu ul li.active .form_nav {
 .table-history {
   margin-left: 5%;
   margin-right: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 }
 .table-history .table {
   border: 1px solid #60c5a8;
@@ -432,7 +432,7 @@ aside .side-inner .nav-menu ul li.active .form_nav {
   font-size: large;
 }
 .pagination {
-  padding-top: 4%;
+  padding-top: 1%;
   display: block;
   text-align: center;
 }

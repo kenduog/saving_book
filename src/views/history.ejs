@@ -59,7 +59,7 @@
                         <!--Display the links to the pages-->
                         <div class="pagination">
                             <% if(page> 1) { %> <a href="history?page=<%=page-1%>" class="notactive">
-                                    << </a>
+                                    < </a>
                                         <% } %>
                                             <% for(let i=iterator; i <=endingLink; i++) { %>
                                                 <% if(i===page) { %>
@@ -76,7 +76,7 @@
                                                                     <% } %>
                                                                         <% if(page < numberOfPages) { %> <a
                                                                                 href="history?page=<%=page+1%>"
-                                                                                class="notactive">>></a>
+                                                                                class="notactive">></a>
                                                                             <% } %>
                         </div>
                     </div>
