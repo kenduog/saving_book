@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2023 at 06:14 AM
+-- Generation Time: Apr 10, 2023 at 10:41 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -18,11 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `saving_book_dev`
---
-
--- --------------------------------------------------------
-
+-- Database: `saving_book`
 --
 -- Table structure for table `income`
 --
@@ -180,6 +176,30 @@ ALTER TABLE `saving_money`
   ADD CONSTRAINT `saving_money_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user_account` (`id`),
   ADD CONSTRAINT `saving_money_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `user_account` (`id`);
 COMMIT;
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getHistory` (IN `user_ID` INT, IN `value_Limit` INT, IN `value_Offset` INT)   BEGIN
+SET @count = (SELECT COUNT(1)
+    FROM `income` 
+    WHERE userID = user_ID) + (    SELECT COUNT(1)
+    FROM `pay` WHERE userID = user_ID);
+
+    SELECT createDate,CAST(totalMoney AS int) as TOTAL, CAST(decNEC AS int) as NEC, CAST(decLTS AS int) as LTS, CAST(decEDU AS int) as EDU, CAST(decPLAY AS int) 		as PLAY, CAST(decFFA AS int) as FFA, CAST(decGIVE AS int) as GIVE,type as TYPE, @count as totalPage
+    FROM `income` 
+    WHERE userID = user_ID
+    UNION ALL 
+    SELECT createDate,CAST(totalMoney AS int) as TOTAL, CAST(decNEC AS int) as NEC, CAST(decLTS AS int) as LTS, CAST(decEDU AS int) as EDU, CAST(decPLAY AS int) 	as PLAY, CAST(decFFA AS int) as FFA, CAST(decGIVE AS int) as GIVE,type as TYPE, @count as totalPage
+    FROM `pay` WHERE userID = user_ID 
+    ORDER BY createDate DESC
+    LIMIT value_Limit, value_Offset;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

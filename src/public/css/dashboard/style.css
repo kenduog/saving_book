@@ -431,3 +431,19 @@ aside .side-inner .nav-menu ul li.active .form_nav {
   color: #b50e0e;
   font-size: large;
 }
+.pagination {
+  padding-top: 4%;
+  display: block;
+  text-align: center;
+}
+.pagination a {
+  font-size: 130%;
+  color: #0d9b73;
+  font-family: "ShopeeDisplay-Light";
+  font-weight: bold;
+  padding: 1%;
+  text-align: center;
+}
+.pagination a.notactive {
+  color: #919191;
+}
