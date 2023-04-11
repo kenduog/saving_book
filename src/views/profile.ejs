@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head.ejs') %>
+        <title>Profile</title>
+</head>
+
+<body>
+    <%- include('partials/header.ejs') %>
+        <div class="title-body">
+            <h3>Profile</h3>
+        </div>
+        <form action="/profile" method="post">
+            <% if(message.length> 0) { %>
+                <div class="alert alert-profile">
+                    <%- include('partials/alert.ejs') %>
+                </div>
+                <% } %>
+                    <section>
+                        <div class="container profile">
+                            <label for="uFirstName"><b>Phone</b></label>
+                            <input type="text" value="<%=generalInfo.glbUser.phoneNumber%>" name="uPhone" required
+                                readonly>
+
+                            <label for="uFirstName"><b>First Name</b></label>
+                            <input type="text" value="<%=generalInfo.glbUser.firstName%>" name="uFirstName" required>
+
+                            <label for="uLastName"><b>Last Name</b></label>
+                            <input type="text" value="<%=generalInfo.glbUser.lastName%>" name="uLastName" required>
+
+                            <label for="uBOD"><b>Birth Of Date</b></label>
+                            <input type="date" value="<%=moment(generalInfo.glbUser.BOD).format( 'YYYY-MM-DD' )%>"
+                                name="uBOD" required>
+
+                            <label for="uEmail"><b>Email</b></label>
+                            <input type="email" value="<%=generalInfo.glbUser.email%>" name="uEmail" required>
+                            <button type="submit">Complete</button>
+                        </div>
+                    </section>
+        </form>
+        <form class="form-change-password" action="/change-password" method="get">
+            <section>
+                <div class="container profile">
+                    <button type="submit">Change Password</button>
+                </div>
+            </section>
+        </form>
+</body>
+<%- include('partials/footer.ejs') %>
+
+</html>

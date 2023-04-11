@@ -447,3 +447,44 @@ aside .side-inner .nav-menu ul li.active .form_nav {
 .pagination a.notactive {
   color: #919191;
 }
+.profile {
+  display: block;
+  text-align: center;
+}
+.profile input[type="text"],
+.profile input[type="date"],
+.profile input[type="email"],
+.profile input[type="password"],
+.profile input[type="number"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.profile input::-webkit-outer-spin-button,
+.profile input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Set a style for all buttons */
+.profile button {
+  font-size: 110%;
+  background-color: #60c5a8;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-family: "ShopeeDisplay-Black";
+  border: 0.2rem solid #a4d4c7;
+}
+.alert-profile {
+  margin-top: -2%;
+  margin-bottom: -3%;
+}
+.form-change-password {
+  margin-top: -1.8%;
+}

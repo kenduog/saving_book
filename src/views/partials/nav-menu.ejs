@@ -8,6 +8,15 @@
                 </form>
             </a>
         </li>
+        <li class="<%=active=='profile'?'active':''%>">
+            <a>
+                <form action="/profile" method="get">
+                    <span class="icon-person mr-3"></span>
+                    <button type="submit" class="form_nav">Profile
+                    </button>
+                </form>
+            </a>
+        </li>
         <li class="<%=active=='add-money'?'active':''%>">
             <a>
                 <form action="/add-money" method="get">

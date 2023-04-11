@@ -151,6 +151,57 @@ const initWebRoute = (app) => {
     savingbookController.postPayPage
   );
 
+  //profile
+  router.get(
+    "/profile",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.getProfile
+  );
+  router.post(
+    "/profile",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.postProfile
+  );
+  //change password
+  router.get(
+    "/change-password",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.getChangePasswordPage
+  );
+  router.post(
+    "/change-password",
+    (req, res, next) => {
+      //Cookies that have not been signed
+      if (req.cookies.tokenSVB != null) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    },
+    savingbookController.postChangePasswordPage
+  );
+
   return app.use("/", router);
 };
 export default initWebRoute;

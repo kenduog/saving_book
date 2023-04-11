@@ -17,12 +17,7 @@ let getHomePage = async (req, res) => {
       "select * from saving_money where userID = ? LIMIT 1",
       [globalUser.id]
     );
-    let [getUser] = await pool.execute(
-      "select id,firstName,lastName,BOD,email,phoneNumber,image from user_account where id = ?",
-      [globalUser.id]
-    );
-    // add global user
-    generalInfo.glbUser = getUser[0];
+    generalInfo.glbUser = await getUserGbl(globalUser.id);
     if (checkSV.length == 1) {
       try {
         // add global List Saving Book
@@ -376,6 +371,14 @@ let getPayPage = async (req, res) => {
     active: "pay",
   });
 };
+let getUserGbl = async (userID) => {
+  let [getUser] = await pool.execute(
+    "select id,firstName,lastName,BOD,email,phoneNumber,image from user_account where id = ?",
+    [userID]
+  );
+  // add global user
+  return getUser[0];
+};
 
 let postPayPage = async (req, res) => {
   try {
@@ -505,6 +508,134 @@ let postPayPage = async (req, res) => {
     });
   }
 };
+let getProfile = (req, res) => {
+  return res.render("profile.ejs", {
+    message: req.flash("status"),
+    status: "success",
+    generalInfo: generalInfo,
+    active: "profile",
+  });
+};
+let postProfile = async (req, res) => {
+  let { uPhone, uFirstName, uLastName, uBOD, uEmail } = req.body;
+  if (uFirstName.length > 0) {
+    if (uLastName.length > 0) {
+      if (uEmail.length > 0) {
+        try {
+          await pool.execute(
+            "UPDATE user_account SET firstName = ?, lastName = ?, BOD = ?, email = ? WHERE id = ?",
+            [uFirstName, uLastName, uBOD, uEmail, generalInfo.glbUser.id]
+          );
+          generalInfo.glbUser = await getUserGbl(generalInfo.glbUser.id);
+          req.flash("success", "Update success");
+          return res.render("profile.ejs", {
+            message: req.flash("success"),
+            status: "success",
+            generalInfo: generalInfo,
+            active: "profile",
+          });
+        } catch (error) {
+          req.flash("error", error);
+          return res.render("profile.ejs", {
+            message: req.flash("error"),
+            status: "error",
+            generalInfo: generalInfo,
+            active: "profile",
+          });
+        }
+      } else {
+        req.flash("warning", "Email is not empty");
+        return res.render("profile.ejs", {
+          message: req.flash("warning"),
+          status: "warning",
+          generalInfo: generalInfo,
+          active: "profile",
+        });
+      }
+    } else {
+      req.flash("warning", "Last name is not empty");
+      return res.render("profile.ejs", {
+        message: req.flash("warning"),
+        status: "warning",
+        generalInfo: generalInfo,
+        active: "profile",
+      });
+    }
+  } else {
+    req.flash("warning", "First name is not empty");
+    return res.render("profile.ejs", {
+      message: req.flash("warning"),
+      status: "warning",
+      generalInfo: generalInfo,
+      active: "profile",
+    });
+  }
+};
+let getChangePasswordPage = (req, res) => {
+  return res.render("change-password.ejs", {
+    message: req.flash("status"),
+    generalInfo: generalInfo,
+    active: "profile",
+  });
+};
+let postChangePasswordPage = async (req, res) => {
+  try {
+    let { uPassword, uNewPassword, uConfirmPassword } = req.body;
+    if (uPassword.length > 0) {
+      let ePassword = Buffer.from(uPassword).toString("base64");
+      let [getPassword] = await pool.execute(
+        "select password from user_account where id = ?",
+        [generalInfo.glbUser.id]
+      );
+      if (ePassword == getPassword[0].password) {
+        if (uNewPassword == uConfirmPassword) {
+          let eNewPassword = Buffer.from(uNewPassword).toString("base64");
+          await pool.execute(
+            "UPDATE user_account SET password = ? WHERE id = ?",
+            [eNewPassword, generalInfo.glbUser.id]
+          );
+          req.flash("success", "Change password success");
+          return res.render("profile.ejs", {
+            message: req.flash("success"),
+            status: "success",
+            generalInfo: generalInfo,
+            active: "profile",
+          });
+        } else {
+          req.flash("warning", "Confirm password not correct");
+          return res.render("change-password.ejs", {
+            message: req.flash("warning"),
+            status: "warning",
+            generalInfo: generalInfo,
+            active: "profile",
+          });
+        }
+      } else {
+        req.flash("warning", "Password not correct");
+        return res.render("change-password.ejs", {
+          message: req.flash("warning"),
+          status: "warning",
+          generalInfo: generalInfo,
+          active: "profile",
+        });
+      }
+    } else {
+      req.flash("warning", "Please input password");
+      return res.render("change-password.ejs", {
+        message: req.flash("warning"),
+        status: "warning",
+        generalInfo: generalInfo,
+        active: "profile",
+      });
+    }
+  } catch (error) {
+    req.flash("danger", error);
+    return res.render("login.ejs", {
+      message: req.flash("danger"),
+      status: "danger",
+    });
+  }
+};
 
 module.exports = {
   getHomePage,
@@ -515,4 +646,8 @@ module.exports = {
   getHistoryPage,
   getPayPage,
   postPayPage,
+  getProfile,
+  postProfile,
+  getChangePasswordPage,
+  postChangePasswordPage,
 };
