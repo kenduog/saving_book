@@ -35,7 +35,7 @@ let getHomePage = async (req, res) => {
       }
     } else {
       return res.render("welcome.ejs", {
-        getUser: getUser[0],
+        getUser: generalInfo.glbUser,
         message: req.flash("status"),
         status: "success",
       });
