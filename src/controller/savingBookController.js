@@ -314,8 +314,16 @@ let getHistoryPage = async (req, res) => {
       generalInfo.glbUser.id,
       resultsPerPage,
     ]);
-    const numOfResults = result[0][0].totalPage;
-    const numberOfPages = Math.ceil(numOfResults / resultsPerPage);
+    let numOfResults;
+    try {
+      numOfResults = result[0][0].totalPage;
+    } catch (error) {
+      numOfResults = 0;
+    }
+    let numberOfPages =
+      Math.ceil(numOfResults / resultsPerPage) == 0
+        ? 1
+        : Math.ceil(numOfResults / resultsPerPage);
     let page = req.query.page ? Number(req.query.page) : 1;
     if (page > numberOfPages) {
       res.redirect("history?page=" + encodeURIComponent(numberOfPagess));
