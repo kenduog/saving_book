@@ -2,8 +2,27 @@ import express from "express";
 import loginController from "../controller/loginController";
 import accountController from "../controller/accountController";
 import savingbookController from "../controller/savingBookController";
-
+import multer from "multer";
+import path from "path";
+var appRoot = require("app-root-path");
 let router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, appRoot + "/src/public/img/save-avatar/");
+  },
+
+  // By default, multer removes file extensions so let's add them back
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+let upload = multer({ storage: storage });
+
 const initWebRoute = (app) => {
   router.get(
     "/",
@@ -200,6 +219,12 @@ const initWebRoute = (app) => {
       }
     },
     savingbookController.postChangePasswordPage
+  );
+  // Change avatar
+  router.post(
+    "/change-avatar",
+    upload.single("profile_pic"),
+    savingbookController.handleUploadAvatar
   );
 
   return app.use("/", router);

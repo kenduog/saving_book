@@ -11,33 +11,46 @@
         <div class="title-body">
             <h3>Profile</h3>
         </div>
-        <form action="/profile" method="post">
+        <form action="/change-avatar" method="post" enctype="multipart/form-data">
             <% if(message.length> 0) { %>
                 <div class="alert alert-profile">
                     <%- include('partials/alert.ejs') %>
                 </div>
                 <% } %>
-                    <section>
-                        <div class="container profile">
-                            <label for="uFirstName"><b>Phone</b></label>
-                            <input type="text" value="<%=generalInfo.glbUser.phoneNumber%>" name="uPhone" required
-                                readonly>
-
-                            <label for="uFirstName"><b>First Name</b></label>
-                            <input type="text" value="<%=generalInfo.glbUser.firstName%>" name="uFirstName" required>
-
-                            <label for="uLastName"><b>Last Name</b></label>
-                            <input type="text" value="<%=generalInfo.glbUser.lastName%>" name="uLastName" required>
-
-                            <label for="uBOD"><b>Birth Of Date</b></label>
-                            <input type="date" value="<%=moment(generalInfo.glbUser.BOD).format( 'YYYY-MM-DD' )%>"
-                                name="uBOD" required>
-
-                            <label for="uEmail"><b>Email</b></label>
-                            <input type="email" value="<%=generalInfo.glbUser.email%>" name="uEmail" required>
-                            <button type="submit">Complete</button>
+                    <div class="form-upload-avatar">
+                        <div class="profile-pic">
+                            <label class="-label" for="file">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                <span>Change</span>
+                            </label>
+                            <input id="file" type="file" name="profile_pic" onchange="loadFile(event)" />
+                            <img src="/img/save-avatar/<%=generalInfo.glbUser.image==null?'none_avt.png':generalInfo.glbUser.image%>"
+                                id="output" width="200" />
                         </div>
-                    </section>
+                        <button type="submit" id="change-avatar" hidden></button>
+                    </div>
+        </form>
+        <form action="/profile" method="post">
+            <section>
+                <div class="container profile">
+                    <label for="uFirstName"><b>Phone</b></label>
+                    <input type="text" value="<%=generalInfo.glbUser.phoneNumber%>" name="uPhone" required readonly>
+
+                    <label for="uFirstName"><b>First Name</b></label>
+                    <input type="text" value="<%=generalInfo.glbUser.firstName%>" name="uFirstName" required>
+
+                    <label for="uLastName"><b>Last Name</b></label>
+                    <input type="text" value="<%=generalInfo.glbUser.lastName%>" name="uLastName" required>
+
+                    <label for="uBOD"><b>Birth Of Date</b></label>
+                    <input type="date" value="<%=moment(generalInfo.glbUser.BOD).format( 'YYYY-MM-DD' )%>" name="uBOD"
+                        required>
+
+                    <label for="uEmail"><b>Email</b></label>
+                    <input type="email" value="<%=generalInfo.glbUser.email%>" name="uEmail" required>
+                    <button type="submit">Complete</button>
+                </div>
+            </section>
         </form>
         <form class="form-change-password" action="/change-password" method="get">
             <section>
@@ -47,6 +60,13 @@
             </section>
         </form>
 </body>
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0]);
+        document.getElementById("change-avatar").click();
+    };
+</script>
 <%- include('partials/footer.ejs') %>
 
 </html>

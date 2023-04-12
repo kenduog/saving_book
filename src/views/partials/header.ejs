@@ -8,7 +8,8 @@
         <div class="side-inner">
 
             <div class="profile">
-                <img src="/img/none_avt.png" alt="Image" class="img-fluid">
+                <img src="/img/save-avatar/<%=generalInfo.glbUser.image==null?'none_avt.png':generalInfo.glbUser.image%>"
+                    alt="Image" class="img-fluid">
                 <h3 class="name">
                     <%=generalInfo.glbUser.firstName%>
                         <%=generalInfo.glbUser.lastName%>

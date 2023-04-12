@@ -1,5 +1,6 @@
 import pool from "../configs/connectDB";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 require("dotenv").config();
 var generalInfo = [];
 generalInfo.instagramName = process.env.YOUR_INSTAGRAM_NAME;
@@ -636,6 +637,51 @@ let postChangePasswordPage = async (req, res) => {
     });
   }
 };
+let handleUploadAvatar = async (req, res) => {
+  try {
+    // Accept images only
+    if (!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) {
+      req.flash("warning", "File not image. Please choose again!");
+      return res.render("profile.ejs", {
+        message: req.flash("warning"),
+        status: "warning",
+        generalInfo: generalInfo,
+        active: "profile",
+      });
+    } else if (!req.file) {
+      req.flash("warning", "Please select an image to upload");
+      return res.render("profile.ejs", {
+        message: req.flash("warning"),
+        status: "warning",
+        generalInfo: generalInfo,
+        active: "profile",
+      });
+    }
+    if (generalInfo.glbUser.image != null) {
+      let linkDelete = req.file.destination + generalInfo.glbUser.image;
+      fs.unlinkSync(linkDelete);
+    }
+    await pool.execute("UPDATE user_account SET image = ? WHERE id = ?", [
+      req.file.filename,
+      generalInfo.glbUser.id,
+    ]);
+    generalInfo.glbUser = await getUserGbl(generalInfo.glbUser.id);
+    // Display uploaded image for user validation
+    req.flash("success", "Change avatar success");
+    return res.render("profile.ejs", {
+      message: req.flash("success"),
+      status: "success",
+      generalInfo: generalInfo,
+      active: "profile",
+    });
+  } catch (error) {
+    req.flash("danger", error);
+    return res.render("login.ejs", {
+      message: req.flash("danger"),
+      status: "danger",
+    });
+  }
+};
 
 module.exports = {
   getHomePage,
@@ -650,4 +696,5 @@ module.exports = {
   postProfile,
   getChangePasswordPage,
   postChangePasswordPage,
+  handleUploadAvatar,
 };
