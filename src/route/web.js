@@ -20,8 +20,15 @@ const storage = multer.diskStorage({
     );
   },
 });
+const imageFilter = function (req, file, cb) {
+  // Accept images only
+  if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+    return cb(null, false);
+  }
+  cb(null, true);
+};
 
-let upload = multer({ storage: storage });
+let upload = multer({ storage: storage, fileFilter: imageFilter });
 
 const initWebRoute = (app) => {
   router.get(

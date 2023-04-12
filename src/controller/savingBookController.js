@@ -640,16 +640,8 @@ let postChangePasswordPage = async (req, res) => {
 let handleUploadAvatar = async (req, res) => {
   try {
     // Accept images only
-    if (!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) {
+    if (!req.file) {
       req.flash("warning", "File not image. Please choose again!");
-      return res.render("profile.ejs", {
-        message: req.flash("warning"),
-        status: "warning",
-        generalInfo: generalInfo,
-        active: "profile",
-      });
-    } else if (!req.file) {
-      req.flash("warning", "Please select an image to upload");
       return res.render("profile.ejs", {
         message: req.flash("warning"),
         status: "warning",
